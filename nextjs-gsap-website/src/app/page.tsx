@@ -1,103 +1,175 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen">
+      {/* Test Hero Section with Custom Classes */}
+      <div className="hero-container">
+        <div className="hero-content">
+          <h1 className="hero-title">Tailwind CSS</h1>
+          <div className="hero-text-scroll">
+            <div className="hero-subtitle">
+              <h1>Setup Complete</h1>
+            </div>
+          </div>
+          <h2>
+            Custom theme colors, fonts, and utility classes successfully
+            migrated from the original project.
+          </h2>
+          <button className="hero-button">✓ Working</button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      {/* Test Custom Utility Classes */}
+      <div className="min-h-screen bg-dark-brown relative">
+        <div className="flex-center h-full">
+          <div className="col-center gap-8 p-8 relative">
+            <h1 className="general-title text-milk text-center">
+              Custom Utilities
+            </h1>
+            <div className="flex gap-8 flex-wrap justify-center">
+              <div className="bg-light-brown p-6 rounded-lg">
+                <p className="font-paragraph text-dark-brown font-bold">
+                  flex-center ✓
+                </p>
+              </div>
+              <div className="bg-mid-brown p-6 rounded-lg">
+                <p className="font-paragraph text-white font-bold">
+                  col-center ✓
+                </p>
+              </div>
+              <div className="bg-milk p-6 rounded-lg">
+                <p className="font-paragraph text-dark-brown font-bold">
+                  general-title ✓
+                </p>
+              </div>
+            </div>
+            <div className="relative w-32 h-32 bg-red-brown rounded-lg">
+              <div className="abs-center bg-milk p-2 rounded text-xs">
+                <p className="font-paragraph text-dark-brown font-bold">
+                  abs-center ✓
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Test Color Palette */}
+      <div className="min-h-screen bg-milk-yellow p-8">
+        <h2 className="general-title text-dark-brown text-center mb-12">
+          Color Palette
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="bg-black p-6 rounded-lg text-center">
+            <div className="w-full h-16 bg-black rounded mb-4"></div>
+            <p className="text-white font-paragraph font-bold">black</p>
+            <p className="text-white font-paragraph text-sm">#222123</p>
+          </div>
+          <div className="bg-dark-brown p-6 rounded-lg text-center">
+            <div className="w-full h-16 bg-dark-brown rounded mb-4"></div>
+            <p className="text-white font-paragraph font-bold">dark-brown</p>
+            <p className="text-white font-paragraph text-sm">#523122</p>
+          </div>
+          <div className="bg-mid-brown p-6 rounded-lg text-center">
+            <div className="w-full h-16 bg-mid-brown rounded mb-4"></div>
+            <p className="text-white font-paragraph font-bold">mid-brown</p>
+            <p className="text-white font-paragraph text-sm">#a26833</p>
+          </div>
+          <div className="bg-light-brown p-6 rounded-lg text-center">
+            <div className="w-full h-16 bg-light-brown rounded mb-4"></div>
+            <p className="text-dark-brown font-paragraph font-bold">
+              light-brown
+            </p>
+            <p className="text-dark-brown font-paragraph text-sm">#e3a458</p>
+          </div>
+          <div className="bg-red-brown p-6 rounded-lg text-center">
+            <div className="w-full h-16 bg-red-brown rounded mb-4"></div>
+            <p className="text-white font-paragraph font-bold">red-brown</p>
+            <p className="text-white font-paragraph text-sm">#7f3b2d</p>
+          </div>
+          <div className="bg-red p-6 rounded-lg text-center">
+            <div className="w-full h-16 bg-red rounded mb-4"></div>
+            <p className="text-white font-paragraph font-bold">red</p>
+            <p className="text-white font-paragraph text-sm">#a02128</p>
+          </div>
+          <div className="bg-milk p-6 rounded-lg border-2 border-dark-brown text-center">
+            <div className="w-full h-16 bg-milk rounded mb-4 border border-dark-brown"></div>
+            <p className="text-dark-brown font-paragraph font-bold">milk</p>
+            <p className="text-dark-brown font-paragraph text-sm">#faeade</p>
+          </div>
+          <div className="bg-milk-yellow p-6 rounded-lg border-2 border-dark-brown text-center">
+            <div className="w-full h-16 bg-milk-yellow rounded mb-4 border border-dark-brown"></div>
+            <p className="text-dark-brown font-paragraph font-bold">
+              milk-yellow
+            </p>
+            <p className="text-dark-brown font-paragraph text-sm">#e3d3bc</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Test Responsive Breakpoints */}
+      <div className="min-h-screen bg-red-brown flex-center">
+        <div className="col-center gap-8 p-8">
+          <h1 className="text-milk text-2xl md:text-4xl 2xl:text-6xl font-bold text-center">
+            Responsive Breakpoints
+          </h1>
+          <p className="font-paragraph text-milk text-center max-w-md md:max-w-lg 2xl:max-w-2xl text-sm md:text-base 2xl:text-lg">
+            This layout adapts to different screen sizes using the same
+            responsive breakpoints as the original project (md: 768px, 2xl:
+            1536px).
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 mt-8 w-full max-w-4xl">
+            <div className="bg-milk p-6 rounded-lg text-center">
+              <p className="font-paragraph text-dark-brown font-bold">Mobile</p>
+              <p className="font-paragraph text-dark-brown text-sm">1 column</p>
+            </div>
+            <div className="bg-milk p-6 rounded-lg text-center">
+              <p className="font-paragraph text-dark-brown font-bold">
+                Tablet (md)
+              </p>
+              <p className="font-paragraph text-dark-brown text-sm">
+                2 columns
+              </p>
+            </div>
+            <div className="bg-milk p-6 rounded-lg text-center">
+              <p className="font-paragraph text-dark-brown font-bold">
+                Desktop (2xl)
+              </p>
+              <p className="font-paragraph text-dark-brown text-sm">
+                3 columns
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Test Font Families */}
+      <div className="min-h-screen bg-milk flex-center">
+        <div className="col-center gap-8 p-8 max-w-4xl">
+          <h1 className="general-title text-dark-brown text-center">
+            Font Test
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <div className="bg-dark-brown p-8 rounded-lg text-center">
+              <h3 className="text-milk text-2xl font-bold mb-4">
+                Antonio Font
+              </h3>
+              <p className="text-milk font-sans text-lg">
+                This is the Antonio font family used for headings and titles.
+                ABCDEFGHIJKLMNOPQRSTUVWXYZ
+              </p>
+            </div>
+            <div className="bg-light-brown p-8 rounded-lg text-center">
+              <h3 className="text-dark-brown text-2xl font-bold mb-4">
+                ProximaNova Font
+              </h3>
+              <p className="text-dark-brown font-paragraph text-lg">
+                This is the ProximaNova font family used for body text and
+                paragraphs. ABCDEFGHIJKLMNOPQRSTUVWXYZ
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
