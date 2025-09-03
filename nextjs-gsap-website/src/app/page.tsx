@@ -1,3 +1,5 @@
+import GSAPTest from "@/components/test/GSAPTest";
+
 export default function Home() {
   return (
     <div className="min-h-screen">
@@ -168,6 +170,21 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* GSAP Test Section */}
+      <div className="min-h-screen bg-red-brown flex-center">
+        <div className="col-center gap-8 p-8 max-w-4xl w-full">
+          <h1 className="general-title text-milk text-center">
+            GSAP Integration Test
+          </h1>
+          <GSAPTest />
+          <p className="font-paragraph text-milk text-center max-w-2xl">
+            This section tests the GSAP provider and error boundary
+            implementation. The animation should run smoothly without any
+            hydration issues.
+          </p>
         </div>
       </div>
     </div>
