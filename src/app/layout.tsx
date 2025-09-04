@@ -1,54 +1,51 @@
 import type { Metadata } from "next";
 import { Antonio } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
-import GSAPProvider from "@/components/providers/GSAPProvider";
-import GSAPErrorBoundary from "@/components/error/GSAPErrorBoundary";
-import ErrorProvider from "@/components/providers/ErrorProvider";
-import ErrorNotification from "@/components/ui/ErrorNotification";
-import NoScriptFallback from "@/components/ui/NoScriptFallback";
-import { PerformanceProvider } from "@/components/providers/PerformanceProvider";
 
-// Configure Antonio font from Google Fonts
+// Font configurations
 const antonio = Antonio({
-  variable: "--font-antonio",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700"],
   display: "swap",
   preload: true,
+  variable: "--font-antonio",
 });
-
-// Configure ProximaNova local font with optimized loading
-const proximaNova = localFont({
-  src: "./fonts/ProximaNova-Regular.otf",
-  variable: "--font-proxima-nova",
-  display: "swap",
-  preload: true,
-  fallback: ["system-ui", "arial"],
-  adjustFontFallback: false,
-});
-
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-};
 
 export const metadata: Metadata = {
-  title: "GSAP Awwwards Website",
+  title: "SPYLT - Premium Protein Drink",
   description:
-    "A sophisticated GSAP-powered website built with Next.js featuring complex animations, scroll effects, and responsive design",
-  keywords: [
-    "GSAP",
-    "Next.js",
-    "React",
-    "Animation",
-    "Scroll Effects",
-    "Awwwards",
-  ],
-  authors: [{ name: "GSAP Awwwards Team" }],
-  creator: "GSAP Awwwards Team",
-  publisher: "GSAP Awwwards",
+    "Experience the ultimate protein drink with SPYLT. Premium quality, exceptional taste, and optimal nutrition for your active lifestyle.",
+  keywords: "protein drink, nutrition, fitness, health, premium protein, SPYLT",
+  authors: [{ name: "SPYLT Team" }],
+  creator: "SPYLT",
+  publisher: "SPYLT",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: "SPYLT - Premium Protein Drink",
+    description:
+      "Experience the ultimate protein drink with SPYLT. Premium quality, exceptional taste, and optimal nutrition for your active lifestyle.",
+    siteName: "SPYLT",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SPYLT Premium Protein Drink",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SPYLT - Premium Protein Drink",
+    description:
+      "Experience the ultimate protein drink with SPYLT. Premium quality, exceptional taste, and optimal nutrition for your active lifestyle.",
+    images: ["/images/twitter-image.jpg"],
+  },
   robots: {
     index: true,
     follow: true,
@@ -60,42 +57,23 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://gsap-awwwards.vercel.app",
-    title: "GSAP Awwwards Website",
-    description:
-      "A sophisticated GSAP-powered website built with Next.js featuring complex animations, scroll effects, and responsive design",
-    siteName: "GSAP Awwwards Website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "GSAP Awwwards Website",
-    description:
-      "A sophisticated GSAP-powered website built with Next.js featuring complex animations, scroll effects, and responsive design",
-  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className={`${antonio.variable} ${proximaNova.variable}`}>
-      <body className="antialiased">
-        <NoScriptFallback>
-          <ErrorProvider>
-            <PerformanceProvider autoStart={true} enableOptimizations={true}>
-              <GSAPErrorBoundary>
-                <GSAPProvider>{children}</GSAPProvider>
-              </GSAPErrorBoundary>
-              <ErrorNotification />
-            </PerformanceProvider>
-          </ErrorProvider>
-        </NoScriptFallback>
-      </body>
+    <html lang="en" className={antonio.variable}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+      </head>
+      <body className="font-antonio antialiased">{children}</body>
     </html>
   );
 }
