@@ -60,29 +60,27 @@ export interface MessageItem {
 
 // Flavor section types
 export interface FlavorSectionProps extends BaseComponentProps {
-  flavors: FlavorItem[];
   animationConfig?: SectionAnimationConfig;
 }
 
-export interface FlavorItem {
+export interface FlavorData {
   id: string;
   name: string;
-  description: string;
-  image: string;
   color: string;
-  nutritionFacts: NutritionFacts;
+  rotation: string;
 }
 
-export interface FlavorSliderProps {
-  flavors: FlavorItem[];
-  currentIndex: number;
-  onFlavorChange: (index: number) => void;
+export interface FlavorSliderProps extends BaseComponentProps {
+  flavors?: FlavorData[];
+}
+
+export interface FlavorTitleProps extends BaseComponentProps {
+  animationConfig?: SectionAnimationConfig;
 }
 
 export interface FlavorCardProps {
-  flavor: FlavorItem;
-  isActive: boolean;
-  onClick: () => void;
+  flavor: FlavorData;
+  className?: string;
 }
 
 // Nutrition section types

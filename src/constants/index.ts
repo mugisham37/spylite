@@ -1,37 +1,67 @@
-const flavorlists = [
+// Flavor data types
+export interface FlavorData {
+  id: string;
+  name: string;
+  color: string;
+  rotation: string;
+}
+
+export interface NutrientData {
+  label: string;
+  amount: string;
+}
+
+export interface TestimonialCardData {
+  id: string;
+  src: string;
+  rotation: string;
+  name: string;
+  img: string;
+  translation?: string;
+}
+
+// Flavor data
+export const flavorlists: FlavorData[] = [
   {
+    id: "chocolate-milk",
     name: "Chocolate Milk",
     color: "brown",
     rotation: "md:rotate-[-8deg] rotate-0",
   },
   {
-    name: "Stawberry Milk",
+    id: "strawberry-milk",
+    name: "Strawberry Milk",
     color: "red",
     rotation: "md:rotate-[8deg] rotate-0",
   },
   {
+    id: "cookies-cream",
     name: "Cookies & Cream",
     color: "blue",
     rotation: "md:rotate-[-8deg] rotate-0",
   },
   {
+    id: "peanut-butter-chocolate",
     name: "Peanut Butter Chocolate",
     color: "orange",
     rotation: "md:rotate-[8deg] rotate-0",
   },
   {
+    id: "vanilla-milkshake",
     name: "Vanilla Milkshake",
     color: "white",
     rotation: "md:rotate-[-8deg] rotate-0",
   },
   {
+    id: "max-chocolate-milk",
     name: "Max Chocolate Milk",
     color: "black",
     rotation: "md:rotate-[8deg] rotate-0",
   },
 ];
 
-const nutrientLists = [
+// Nutrient data
+export const nutrientLists: NutrientData[] = [
   { label: "Potassium", amount: "245mg" },
   { label: "Calcium", amount: "500mg" },
   { label: "Vitamin A", amount: "176mcg" },
@@ -39,8 +69,10 @@ const nutrientLists = [
   { label: "Iron", amount: "1mg" },
 ];
 
-const cards = [
+// Testimonial card data
+export const cards: TestimonialCardData[] = [
   {
+    id: "madison",
     src: "/videos/f1.mp4",
     rotation: "rotate-z-[-10deg]",
     name: "Madison",
@@ -48,12 +80,14 @@ const cards = [
     translation: "translate-y-[-5%]",
   },
   {
+    id: "alexander",
     src: "/videos/f2.mp4",
     rotation: "rotate-z-[4deg]",
     name: "Alexander",
     img: "/images/p2.png",
   },
   {
+    id: "andrew",
     src: "/videos/f3.mp4",
     rotation: "rotate-z-[-4deg]",
     name: "Andrew",
@@ -61,6 +95,7 @@ const cards = [
     translation: "translate-y-[-5%]",
   },
   {
+    id: "bryan",
     src: "/videos/f4.mp4",
     rotation: "rotate-z-[4deg]",
     name: "Bryan",
@@ -68,12 +103,14 @@ const cards = [
     translation: "translate-y-[5%]",
   },
   {
+    id: "chris",
     src: "/videos/f5.mp4",
     rotation: "rotate-z-[-10deg]",
     name: "Chris",
     img: "/images/p5.png",
   },
   {
+    id: "devante",
     src: "/videos/f6.mp4",
     rotation: "rotate-z-[4deg]",
     name: "Devante",
@@ -81,6 +118,7 @@ const cards = [
     translation: "translate-y-[5%]",
   },
   {
+    id: "melisa",
     src: "/videos/f7.mp4",
     rotation: "rotate-z-[-3deg]",
     name: "Melisa",
@@ -88,5 +126,3 @@ const cards = [
     translation: "translate-y-[10%]",
   },
 ];
-
-export { flavorlists, nutrientLists, cards };

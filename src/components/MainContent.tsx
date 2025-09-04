@@ -15,6 +15,11 @@ const MessageSection = dynamic(() => import("@/sections/MessageSection"), {
   loading: () => <SectionSkeleton showTitle={false} />,
 }) as React.ComponentType<{}>;
 
+const FlavorSection = dynamic(() => import("@/sections/FlavorSection"), {
+  ssr: false,
+  loading: () => <SectionSkeleton showTitle={false} />,
+});
+
 export default function MainContent() {
   useEffect(() => {
     console.log("MainContent mounted - GSAP sections ready");
@@ -26,6 +31,7 @@ export default function MainContent() {
         <div id="smooth-content">
           <HeroSection />
           <MessageSection />
+          <FlavorSection />
         </div>
       </div>
     </main>
