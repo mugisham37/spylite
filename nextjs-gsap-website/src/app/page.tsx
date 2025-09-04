@@ -7,6 +7,7 @@ import {
   FooterSection,
   NavBar,
 } from "@/components";
+import ScrollSmootherWrapper from "@/components/scroll/ScrollSmootherWrapper";
 
 // Placeholder components for sections not yet migrated
 const HeroSection = () => (
@@ -33,17 +34,15 @@ export default function Home() {
       {/* Navigation - ✅ Migrated */}
       <NavBar />
 
-      <div id="smooth-wrapper">
-        <div id="smooth-content">
-          <HeroSection />
-          <MessageSection />
-          <FlavorSection />
-          <NutritionSection />
-          <BenefitSection />
-          <TestimonialSection />
-          <FooterSection />
-        </div>
-      </div>
+      <ScrollSmootherWrapper>
+        <HeroSection />
+        <MessageSection />
+        <FlavorSection />
+        <NutritionSection />
+        <BenefitSection />
+        <TestimonialSection />
+        <FooterSection />
+      </ScrollSmootherWrapper>
     </main>
   );
 }

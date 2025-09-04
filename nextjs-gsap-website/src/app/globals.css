@@ -25,9 +25,41 @@ body {
   color: #523122;
   font-family: var(--font-antonio), "Antonio", sans-serif;
   overflow-x: hidden;
-  scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
+}
+
+/* ScrollSmoother specific styles */
+#smooth-wrapper {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+#smooth-content {
+  overflow: visible;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Optimize performance for smooth scrolling */
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure proper rendering for GSAP animations */
+.gsap-element {
+  will-change: transform, opacity;
+}
+
+/* Prevent layout shifts during scroll */
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 body::-webkit-scrollbar {
