@@ -1,4 +1,9 @@
-import { MessageSection, FlavorSection, NutritionSection } from "@/components";
+import {
+  MessageSection,
+  FlavorSection,
+  NutritionSection,
+  BenefitSection,
+} from "@/components";
 
 // Placeholder components for sections not yet migrated
 const HeroSection = () => (
@@ -15,26 +20,6 @@ const HeroSection = () => (
         milk protein drinks.
       </h2>
       <button className="hero-button">Discover More</button>
-    </div>
-  </section>
-);
-
-const BenefitSection = () => (
-  <section className="benefit-section">
-    <div className="flex-center h-full">
-      <div className="col-center gap-8 p-8 max-w-4xl w-full">
-        <h1 className="general-title text-milk text-center">
-          Benefits Section
-        </h1>
-        <p className="font-paragraph text-milk text-center max-w-2xl">
-          This section will showcase the health benefits of our milk protein
-          drinks.
-          <br />
-          <span className="text-light-brown">
-            Coming Soon - Migration in Progress
-          </span>
-        </p>
-      </div>
     </div>
   </section>
 );
@@ -94,7 +79,7 @@ export default function Home() {
           {/* 4. Nutrition Section - ✅ Migrated */}
           <NutritionSection />
 
-          {/* 5. Benefit Section - 🚧 Placeholder */}
+          {/* 5. Benefit Section - ✅ Migrated */}
           <BenefitSection />
 
           {/* 6. Testimonial Section - 🚧 Placeholder */}
