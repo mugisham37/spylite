@@ -1,21 +1,46 @@
 {
   "name": "SPYLT - Premium Protein Drink",
   "short_name": "SPYLT",
-  "description": "Premium protein drink for your active lifestyle",
+  "description": "Experience the ultimate protein drink with SPYLT. Premium quality, exceptional taste, and optimal nutrition for your active lifestyle.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "background_color": "#faeade",
+  "theme_color": "#a26833",
+  "categories": ["food", "health", "lifestyle"],
+  "lang": "en",
+  "scope": "/",
   "icons": [
     {
       "src": "/icon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     },
     {
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "apple touch icon"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-wide.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/images/screenshot-narrow.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
     }
   ]
 }
