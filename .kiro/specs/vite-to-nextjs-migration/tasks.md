@@ -73,7 +73,7 @@
   - Set up proper responsive layout for nutrition facts display
   - _Requirements: 1.1, 3.1, 6.1_
 
-- [ ] 10. Migrate BenefitSection with video pinning
+- [-] 10. Migrate BenefitSection with video pinning
 
   - Create BenefitSection component with multiple animated titles
   - Implement VideoPinSection with proper video controls and GSAP pinning
