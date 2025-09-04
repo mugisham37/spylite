@@ -49,7 +49,7 @@
   - Implement responsive behavior identical to original
   - _Requirements: 1.1, 1.6, 6.1, 6.2_
 
-- [ ] 8. Hero Section Implementation
+- [-] 8. Hero Section Implementation
 
   - Migrate HeroSection with video background and responsive image fallbacks
   - Implement SplitText character animations with exact timing preservation
