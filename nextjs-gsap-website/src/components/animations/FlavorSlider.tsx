@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { useResponsive } from "@/lib";
 import { flavorlists } from "@/lib";
+import type { FlavorData } from "@/types/constants";
 import OptimizedImage from "../ui/OptimizedImage";
 import { imageDimensions } from "@/lib/utils/imageOptimization";
 
@@ -75,7 +76,7 @@ const FlavorSlider = () => {
   return (
     <div ref={sliderRef} className="slider-wrapper">
       <div className="flavors">
-        {flavorlists.map((flavor) => (
+        {flavorlists.map((flavor: FlavorData) => (
           <div
             key={flavor.name}
             className={`relative z-30 lg:w-[50vw] w-96 lg:h-[70vh] md:w-[90vw] md:h-[50vh] h-80 flex-none ${flavor.rotation}`}

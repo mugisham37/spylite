@@ -12,12 +12,7 @@ import {
   DeviceCapabilities,
   MediaPerformanceMetrics,
 } from "./media";
-import {
-  PerformanceMetrics,
-  ErrorReport,
-  ValidationResult,
-  DeviceInfo,
-} from "./utils";
+import { PerformanceMetrics, ValidationResult, DeviceInfo } from "./utils";
 
 // Base hook return type
 export interface BaseHookReturn {
@@ -29,18 +24,18 @@ export interface BaseHookReturn {
 // GSAP hooks
 export interface UseGSAPOptions {
   scope?: RefObject<Element> | string;
-  dependencies?: any[];
+  dependencies?: unknown[];
   revertOnUpdate?: boolean;
 }
 
 export interface UseGSAPReturn extends BaseHookReturn {
-  contextSafe: <T extends (...args: any[]) => any>(func: T) => T;
+  contextSafe: <T extends (...args: unknown[]) => unknown>(func: T) => T;
   context: GSAPContextReturn;
   isReady: boolean;
 }
 
 export interface UseScrollTriggerOptions extends ScrollTriggerConfig {
-  dependencies?: any[];
+  dependencies?: unknown[];
   enabled?: boolean;
 }
 
@@ -214,7 +209,7 @@ export interface UseErrorHandlingReturn {
   error: Error | null;
   hasError: boolean;
   errorCount: number;
-  reportError: (error: Error, context?: any) => void;
+  reportError: (error: Error, context?: Record<string, unknown>) => void;
   clearError: () => void;
   retry: () => void;
   canRetry: boolean;
@@ -223,9 +218,9 @@ export interface UseErrorHandlingReturn {
 export interface UseErrorBoundaryReturn {
   hasError: boolean;
   error: Error | null;
-  errorInfo: any;
+  errorInfo: React.ErrorInfo | null;
   resetError: () => void;
-  captureError: (error: Error, errorInfo?: any) => void;
+  captureError: (error: Error, errorInfo?: React.ErrorInfo) => void;
 }
 
 // State management hooks
@@ -242,7 +237,7 @@ export interface UseLocalStorageReturn<T> {
   hasValue: boolean;
 }
 
-export interface UseSessionStorageReturn<T> extends UseLocalStorageReturn<T> {}
+export type UseSessionStorageReturn<T> = UseLocalStorageReturn<T>;
 
 export interface UseDebounceOptions {
   delay: number;
@@ -273,7 +268,7 @@ export interface UseThrottleReturn<T> {
 // Form hooks
 export interface UseFormOptions<T> {
   initialValues: T;
-  validationSchema?: any;
+  validationSchema?: Record<string, unknown>;
   onSubmit: (values: T) => void | Promise<void>;
   validateOnChange?: boolean;
   validateOnBlur?: boolean;
@@ -286,10 +281,10 @@ export interface UseFormReturn<T> {
   isSubmitting: boolean;
   isValid: boolean;
   isDirty: boolean;
-  handleChange: (field: keyof T) => (value: any) => void;
+  handleChange: (field: keyof T) => (value: unknown) => void;
   handleBlur: (field: keyof T) => () => void;
   handleSubmit: (e?: React.FormEvent) => void;
-  setFieldValue: (field: keyof T, value: any) => void;
+  setFieldValue: (field: keyof T, value: unknown) => void;
   setFieldError: (field: keyof T, error: string) => void;
   resetForm: () => void;
   validateField: (field: keyof T) => Promise<void>;
@@ -301,8 +296,8 @@ export interface UseAPIOptions<T> {
   url: string;
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   headers?: Record<string, string>;
-  params?: Record<string, any>;
-  data?: any;
+  params?: Record<string, unknown>;
+  data?: unknown;
   enabled?: boolean;
   refetchOnWindowFocus?: boolean;
   refetchInterval?: number;

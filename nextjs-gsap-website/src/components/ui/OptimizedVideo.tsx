@@ -64,7 +64,7 @@ const OptimizedVideo = forwardRef<HTMLVideoElement, OptimizedVideoProps>(
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
+          if (entry?.isIntersecting) {
             setIsIntersecting(true);
             observer.disconnect();
           }

@@ -23,11 +23,11 @@ export default class MediaErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Media Error Boundary caught an error:", error, errorInfo);
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       const { mediaType = "media" } = this.props;
 

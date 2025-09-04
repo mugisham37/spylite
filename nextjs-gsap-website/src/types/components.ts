@@ -1,11 +1,6 @@
 // Component prop interfaces
 import { ReactNode } from "react";
-import {
-  GSAPTimelineConfig,
-  ScrollTriggerConfig,
-  AnimationConfig,
-} from "./gsap";
-import { OptimizedImageProps, OptimizedVideoProps } from "./media";
+import { AnimationConfig } from "./gsap";
 
 // Base component props
 export interface BaseComponentProps {
@@ -247,21 +242,21 @@ export interface GSAPProviderProps extends BaseComponentProps {
 }
 
 export interface ErrorProviderProps extends BaseComponentProps {
-  onError?: (error: Error, errorInfo: any) => void;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
   fallback?: ReactNode;
 }
 
 // Error boundary props
 export interface ErrorBoundaryProps extends BaseComponentProps {
   fallback?: ReactNode;
-  onError?: (error: Error, errorInfo: any) => void;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
   resetOnPropsChange?: boolean;
   resetKeys?: Array<string | number>;
 }
 
 // Form component props
 export interface FormProps extends BaseComponentProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: Record<string, unknown>) => void;
   validation?: ValidationSchema;
   loading?: boolean;
   disabled?: boolean;
@@ -273,7 +268,7 @@ export interface ValidationSchema {
     minLength?: number;
     maxLength?: number;
     pattern?: RegExp;
-    custom?: (value: any) => boolean | string;
+    custom?: (value: unknown) => boolean | string;
   };
 }
 

@@ -76,6 +76,8 @@ export const useResponsive = (): UseResponsiveReturn => {
       window.addEventListener("resize", updateViewport);
       return () => window.removeEventListener("resize", updateViewport);
     }
+
+    return undefined;
   }, []);
 
   // Determine current breakpoint
@@ -154,6 +156,8 @@ export const useViewport = (
         clearTimeout(timeoutId);
       };
     }
+
+    return undefined;
   }, [debounceMs]);
 
   const aspectRatio =

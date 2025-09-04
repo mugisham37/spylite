@@ -86,8 +86,7 @@ export default function ImageLoader({
       <Image
         src={src}
         alt={alt}
-        width={fill ? undefined : width}
-        height={fill ? undefined : height}
+        {...(fill ? {} : { width, height })}
         fill={fill}
         priority={priority}
         sizes={sizes}

@@ -1,5 +1,4 @@
 // GSAP-related type definitions
-import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { SplitText } from "gsap/SplitText";
@@ -28,7 +27,18 @@ export interface ScrollTriggerConfig {
   scrub?: boolean | number;
   pin?: boolean | string | Element;
   pinSpacing?: boolean;
-  snap?: boolean | number | object;
+  snap?:
+    | boolean
+    | number
+    | string
+    | (() => number)
+    | {
+        snapTo: string | number | (() => number);
+        duration?: number;
+        delay?: number;
+        directional?: boolean;
+        inertia?: boolean;
+      };
   markers?: boolean;
   toggleActions?: string;
   toggleClass?: string;

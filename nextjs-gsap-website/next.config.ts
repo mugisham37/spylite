@@ -22,11 +22,41 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ["gsap", "@gsap/react"],
+    optimizeCss: true,
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
   },
 
-  // Webpack configuration for GSAP
-  webpack: (config) => {
-    // Handle GSAP modules
+  // Bundle analyzer configuration
+  env: {
+    ANALYZE: process.env.ANALYZE,
+  },
+
+  // Compression and optimization
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: false,
+
+  // Output configuration for better caching
+  output: "standalone",
+
+  // Webpack configuration for GSAP and performance
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Bundle analyzer
+    if (process.env.ANALYZE) {
+      const BundleAnalyzerPlugin = require("@next/bundle-analyzer")({
+        enabled: true,
+      });
+      config.plugins.push(new BundleAnalyzerPlugin());
+    }
+
+    // Handle GSAP modules with tree shaking
     config.resolve.alias = {
       ...config.resolve.alias,
     };
@@ -42,6 +72,40 @@ const nextConfig: NextConfig = {
         },
       },
     });
+
+    // Optimize bundle splitting
+    if (!dev && !isServer) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          ...config.optimization.splitChunks,
+          cacheGroups: {
+            ...config.optimization.splitChunks.cacheGroups,
+            gsap: {
+              name: "gsap",
+              test: /[\\/]node_modules[\\/](gsap|@gsap)[\\/]/,
+              chunks: "all",
+              priority: 30,
+              reuseExistingChunk: true,
+            },
+            animations: {
+              name: "animations",
+              test: /[\\/]src[\\/]components[\\/]animations[\\/]/,
+              chunks: "all",
+              priority: 20,
+              reuseExistingChunk: true,
+            },
+            vendor: {
+              name: "vendor",
+              test: /[\\/]node_modules[\\/]/,
+              chunks: "all",
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+      };
+    }
 
     return config;
   },

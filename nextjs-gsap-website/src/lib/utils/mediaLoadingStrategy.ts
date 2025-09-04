@@ -47,7 +47,7 @@ export const preloadCriticalResources = () => {
 
 // Progressive image loading with blur-up effect
 export const createProgressiveImageLoader = (
-  lowQualitySrc: string,
+  _lowQualitySrc: string,
   highQualitySrc: string,
   onLoad?: () => void
 ): Promise<void> => {

@@ -23,14 +23,14 @@ export interface ThrottleOptions {
   trailing?: boolean;
 }
 
-export type DebouncedFunction<T extends (...args: any[]) => any> = {
+export type DebouncedFunction<T extends (...args: unknown[]) => unknown> = {
   (...args: Parameters<T>): void;
   cancel: () => void;
   flush: () => ReturnType<T> | undefined;
   pending: () => boolean;
 };
 
-export type ThrottledFunction<T extends (...args: any[]) => any> = {
+export type ThrottledFunction<T extends (...args: unknown[]) => unknown> = {
   (...args: Parameters<T>): ReturnType<T> | undefined;
   cancel: () => void;
   flush: () => ReturnType<T> | undefined;
@@ -86,7 +86,7 @@ export interface ErrorReport {
   userAgent: string;
   userId?: string;
   sessionId?: string;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 export interface ErrorHandlerConfig {
@@ -99,7 +99,7 @@ export interface ErrorHandlerConfig {
 }
 
 // Validation types
-export interface ValidationRule<T = any> {
+export interface ValidationRule<T = unknown> {
   required?: boolean;
   minLength?: number;
   maxLength?: number;
@@ -123,12 +123,12 @@ export interface ValidationResult {
 // Storage utility types
 export interface StorageOptions {
   prefix?: string;
-  serialize?: (value: any) => string;
-  deserialize?: (value: string) => any;
+  serialize?: (value: unknown) => string;
+  deserialize?: (value: string) => unknown;
   expiry?: number; // in milliseconds
 }
 
-export interface StorageItem<T = any> {
+export interface StorageItem<T = unknown> {
   value: T;
   timestamp: number;
   expiry?: number;
@@ -144,11 +144,11 @@ export interface RouteConfig {
   component: React.ComponentType;
   exact?: boolean;
   guards?: Array<() => boolean | Promise<boolean>>;
-  meta?: Record<string, any>;
+  meta?: Record<string, unknown>;
 }
 
 // API utility types
-export interface APIResponse<T = any> {
+export interface APIResponse<T = unknown> {
   data: T;
   status: number;
   statusText: string;
@@ -160,7 +160,7 @@ export interface APIError {
   message: string;
   status: number;
   statusText: string;
-  data?: any;
+  data?: unknown;
   config: RequestConfig;
 }
 
@@ -168,8 +168,8 @@ export interface RequestConfig {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   headers?: Record<string, string>;
-  params?: Record<string, any>;
-  data?: any;
+  params?: Record<string, unknown>;
+  data?: unknown;
   timeout?: number;
   retries?: number;
   retryDelay?: number;
@@ -222,7 +222,7 @@ export interface ColorPalette {
 // Animation utility types
 export interface AnimationKeyframe {
   offset: number;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
   easing?: string;
 }
 
@@ -310,7 +310,7 @@ export interface LocaleConfig {
 export interface TranslationKey {
   key: string;
   defaultValue: string;
-  interpolation?: Record<string, any>;
+  interpolation?: Record<string, unknown>;
   pluralization?: {
     count: number;
     forms: Record<string, string>;
@@ -320,12 +320,12 @@ export interface TranslationKey {
 // Testing utility types
 export interface TestConfig {
   testId: string;
-  mockData?: any;
+  mockData?: unknown;
   skipTests?: string[];
   timeout?: number;
 }
 
-export interface MockFunction<T extends (...args: any[]) => any> {
+export interface MockFunction<T extends (...args: unknown[]) => unknown> {
   (...args: Parameters<T>): ReturnType<T>;
   mockReturnValue: (value: ReturnType<T>) => void;
   mockResolvedValue: (value: ReturnType<T>) => void;
@@ -337,7 +337,7 @@ export interface MockFunction<T extends (...args: any[]) => any> {
 }
 
 // Configuration types
-export interface ConfigProvider<T = any> {
+export interface ConfigProvider<T = unknown> {
   get: (key: string, defaultValue?: T) => T;
   set: (key: string, value: T) => void;
   has: (key: string) => boolean;

@@ -2,12 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { SplitText } from "gsap/SplitText";
-import type {
-  GSAPAppConfig,
-  ScrollTriggerConfig,
-  ScrollSmootherConfig,
-  GSAPPerformanceMetrics,
-} from "@/types/gsap";
+import type { GSAPAppConfig, GSAPPerformanceMetrics } from "@/types/gsap";
 
 // Enhanced GSAP configuration with comprehensive typing
 export const defaultGSAPConfig: GSAPAppConfig = {
@@ -74,7 +69,9 @@ export const initializeGSAP = (
     });
 
     // Set ScrollTrigger defaults
-    ScrollTrigger.defaults(mergedConfig.scrollTrigger.defaults);
+    const { snap: _, ...scrollTriggerDefaults } =
+      mergedConfig.scrollTrigger.defaults;
+    ScrollTrigger.defaults(scrollTriggerDefaults);
 
     // Initialize performance monitoring
     if (typeof window !== "undefined") {
@@ -154,9 +151,15 @@ const initializePerformanceMonitoring = (): void => {
 
       // Memory usage (if available)
       if ("memory" in performance) {
-        const memory = (performance as any).memory;
-        performanceMetrics.memoryUsage =
-          memory.usedJSHeapSize / memory.jsHeapSizeLimit;
+        const memory = (
+          performance as Performance & {
+            memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number };
+          }
+        ).memory;
+        if (memory) {
+          performanceMetrics.memoryUsage =
+            memory.usedJSHeapSize / memory.jsHeapSizeLimit;
+        }
       }
 
       lastTime = currentTime;
@@ -183,7 +186,7 @@ export const createGSAPContext = (scope?: string | Element): gsap.Context => {
 // Utility to safely register GSAP plugins
 export const registerGSAPPlugins = (...plugins: unknown[]): void => {
   try {
-    gsap.registerPlugin(...plugins);
+    gsap.registerPlugin(...(plugins as gsap.Plugin[]));
   } catch (error) {
     console.error("Failed to register GSAP plugins:", error);
   }

@@ -12,13 +12,13 @@ import { imageDimensions } from "@/lib/utils/imageOptimization";
 
 const NutritionSection = () => {
   const { isMobile } = useResponsive();
-  const [lists, setLists] = useState<NutrientData[]>(nutrientLists);
+  const [lists, setLists] = useState<NutrientData[]>([...nutrientLists]);
 
   useEffect(() => {
     if (isMobile) {
-      setLists(nutrientLists.slice(0, 3));
+      setLists([...nutrientLists.slice(0, 3)]);
     } else {
-      setLists(nutrientLists);
+      setLists([...nutrientLists]);
     }
   }, [isMobile]);
 

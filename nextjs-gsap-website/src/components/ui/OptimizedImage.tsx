@@ -71,15 +71,14 @@ const OptimizedImage = ({
       <Image
         src={src}
         alt={alt}
-        width={fill ? undefined : width}
-        height={fill ? undefined : height}
+        {...(fill ? {} : { width, height })}
         fill={fill}
         className={className}
         priority={priority}
         sizes={responsiveSizes}
         quality={quality}
         placeholder={placeholder}
-        blurDataURL={blurDataURL}
+        {...(blurDataURL ? { blurDataURL } : {})}
         onLoad={handleLoad}
         onError={handleError}
         style={{

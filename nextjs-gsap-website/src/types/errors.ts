@@ -4,7 +4,7 @@
 export interface BaseError extends Error {
   code?: string;
   statusCode?: number;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
   timestamp?: number;
   userId?: string;
   sessionId?: string;
@@ -40,16 +40,16 @@ export interface APIError extends BaseError {
   method: string;
   status: number;
   statusText: string;
-  response?: any;
+  response?: unknown;
   requestId?: string;
 }
 
 // Validation errors
 export interface ValidationError extends BaseError {
   field: string;
-  value: any;
+  value: unknown;
   rule: string;
-  expected?: any;
+  expected?: unknown;
 }
 
 // Performance errors
@@ -72,8 +72,8 @@ export interface NetworkError extends BaseError {
 export interface ComponentError extends BaseError {
   componentName: string;
   componentStack: string;
-  props?: Record<string, any>;
-  state?: Record<string, any>;
+  props?: Record<string, unknown>;
+  state?: Record<string, unknown>;
 }
 
 // Error severity levels
@@ -103,7 +103,7 @@ export interface ErrorContext {
   environment: "development" | "staging" | "production";
   feature?: string;
   action?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 // Error report structure
@@ -128,7 +128,7 @@ export interface ErrorBreadcrumb {
   type: "navigation" | "user" | "http" | "error" | "info";
   category?: string;
   message: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
   level: "debug" | "info" | "warning" | "error";
 }
 

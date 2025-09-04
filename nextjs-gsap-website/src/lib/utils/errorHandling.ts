@@ -9,8 +9,8 @@ export interface ErrorInfo {
 
 export interface ErrorReport {
   message: string;
-  stack?: string;
-  componentStack?: string;
+  stack?: string | undefined;
+  componentStack?: string | undefined;
   timestamp: number;
   userAgent: string;
   url: string;
@@ -47,7 +47,9 @@ export function logError(error: Error, errorInfo?: ErrorInfo): void {
  */
 export function handleGSAPError(error: Error, context: string): void {
   const enhancedError = new Error(`GSAP Error in ${context}: ${error.message}`);
-  enhancedError.stack = error.stack;
+  if (error.stack) {
+    enhancedError.stack = error.stack;
+  }
 
   logError(enhancedError);
 

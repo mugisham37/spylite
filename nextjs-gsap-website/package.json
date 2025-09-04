@@ -5,8 +5,12 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "build:analyze": "ANALYZE=true next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "performance:test": "npm run build && npm run performance:lighthouse",
+    "performance:lighthouse": "lighthouse http://localhost:3000 --output=json --output-path=./performance-report.json --chrome-flags=\"--headless\"",
+    "performance:bundle": "npm run build:analyze"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -19,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.5.2",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/vite": "^4.1.8",
     "@types/node": "^20",
@@ -27,7 +32,9 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "file-loader": "^6.2.0",
+    "lighthouse": "^12.2.1",
     "tailwindcss": "^4.1.8",
-    "typescript": "^5"
+    "typescript": "^5",
+    "web-vitals": "^4.2.4"
   }
 }

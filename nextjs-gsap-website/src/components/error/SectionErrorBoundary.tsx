@@ -23,7 +23,7 @@ export default class SectionErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error(
       `Section Error Boundary (${this.props.sectionName}) caught an error:`,
       error,
@@ -31,7 +31,7 @@ export default class SectionErrorBoundary extends Component<Props, State> {
     );
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       const { sectionName = "Section" } = this.props;
 

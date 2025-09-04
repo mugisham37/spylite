@@ -169,7 +169,8 @@ export interface MediaOptimizationResult {
 }
 
 // Extended Next.js Image props with our optimizations
-export interface OptimizedImageProps extends Omit<ImageProps, "src" | "alt"> {
+export interface OptimizedImageProps
+  extends Omit<ImageProps, "src" | "alt" | "onError"> {
   src: string;
   alt: string;
   optimization?: Partial<ImageOptimizationConfig>;

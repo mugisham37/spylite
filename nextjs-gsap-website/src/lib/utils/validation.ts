@@ -25,7 +25,7 @@ const CREDIT_CARD_REGEX = /^\d{13,19}$/;
 // Basic validation functions
 export const validators = {
   // Required field validation
-  required: (value: any): boolean => {
+  required: (value: unknown): boolean => {
     if (value === null || value === undefined) return false;
     if (typeof value === "string") return value.trim().length > 0;
     if (Array.isArray(value)) return value.length > 0;
@@ -138,13 +138,13 @@ export const validators = {
   // Array validation
   arrayMinLength:
     (min: number) =>
-    (value: any[]): boolean => {
+    (value: unknown[]): boolean => {
       return Array.isArray(value) && value.length >= min;
     },
 
   arrayMaxLength:
     (max: number) =>
-    (value: any[]): boolean => {
+    (value: unknown[]): boolean => {
       return Array.isArray(value) && value.length <= max;
     },
 
@@ -300,7 +300,7 @@ export const validateField = <T>(
 };
 
 // Validate an object against a schema
-export const validateSchema = <T extends Record<string, any>>(
+export const validateSchema = <T extends Record<string, unknown>>(
   data: T,
   schema: ValidationSchema
 ): ValidationResult => {
@@ -343,7 +343,7 @@ export const validateFieldAsync = async <T>(
       if (typeof asyncResult === "string") {
         return { isValid: false, error: asyncResult };
       }
-    } catch (error) {
+    } catch {
       return { isValid: false, error: "Validation failed" };
     }
   }
@@ -370,12 +370,12 @@ export const createDebouncedValidator = <T>(
 };
 
 // Form validation utilities
-export const createFormValidator = <T extends Record<string, any>>(
+export const createFormValidator = <T extends Record<string, unknown>>(
   schema: ValidationSchema
 ) => {
   return {
     validate: (data: T) => validateSchema(data, schema),
-    validateField: (field: keyof T, value: any) => {
+    validateField: (field: keyof T, value: unknown) => {
       const rules = schema[field as string];
       return rules ? validateField(value, rules) : { isValid: true };
     },

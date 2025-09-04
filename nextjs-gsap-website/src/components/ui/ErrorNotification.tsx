@@ -20,6 +20,8 @@ export default function ErrorNotification() {
 
       return () => clearTimeout(timer);
     }
+
+    return undefined;
   }, [errors, hasErrors, removeError]);
 
   if (!hasErrors || visibleErrors.length === 0) {
