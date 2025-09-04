@@ -297,8 +297,34 @@ video {
         @apply size-full absolute inset-0 object-cover;
       }
 
+      .play-btn-container {
+        @apply transition-all duration-300 ease-out;
+
+        &:hover {
+          .circle-text {
+            animation-duration: 15s;
+          }
+        }
+      }
+
       .play-btn {
-        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[9vw] flex justify-center items-center bg-[#ffffff1a] backdrop-blur-xl rounded-full;
+        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[9vw] flex justify-center items-center bg-[#ffffff1a] backdrop-blur-xl rounded-full transition-all duration-300 ease-out;
+
+        &:hover {
+          @apply bg-[#ffffff2a] scale-110;
+        }
+
+        &:active {
+          @apply scale-95;
+        }
+      }
+
+      .play-icon {
+        @apply transition-all duration-300 ease-out;
+      }
+
+      .circle-text {
+        @apply size-[15vw] transition-all duration-500 ease-out;
       }
 
       img:first-of-type {

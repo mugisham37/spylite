@@ -85,7 +85,7 @@ export interface FlavorCardProps {
 
 // Nutrition section types
 export interface NutritionSectionProps extends BaseComponentProps {
-  nutritionData: NutritionData;
+  nutritionData?: NutritionData;
   animationConfig?: SectionAnimationConfig;
 }
 
