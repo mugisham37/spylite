@@ -48,7 +48,7 @@
   - Test animation timing matches original exactly
   - _Requirements: 1.1, 1.2, 3.1, 6.2_
 
-- [ ] 7. Migrate MessageSection with scroll animations
+- [x] 7. Migrate MessageSection with scroll animations
 
   - Create MessageSection component with background and text animations
   - Implement GSAP ScrollTrigger for text movement and clip-path effects

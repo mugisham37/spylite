@@ -1,4 +1,5 @@
 import GSAPTest from "@/components/test/GSAPTest";
+import { MessageSection } from "@/components";
 
 export default function Home() {
   return (
@@ -187,6 +188,9 @@ export default function Home() {
           </p>
         </div>
       </div>
+
+      {/* MessageSection Test */}
+      <MessageSection />
     </div>
   );
 }
