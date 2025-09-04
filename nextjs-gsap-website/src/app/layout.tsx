@@ -4,7 +4,10 @@ import localFont from "next/font/local";
 import "./globals.css";
 import GSAPProvider from "@/components/providers/GSAPProvider";
 import GSAPErrorBoundary from "@/components/error/GSAPErrorBoundary";
-import { initializePerformanceMonitoring } from "@/lib/utils/performanceMonitoring";
+import ErrorProvider from "@/components/providers/ErrorProvider";
+import ErrorNotification from "@/components/ui/ErrorNotification";
+import NoScriptFallback from "@/components/ui/NoScriptFallback";
+import PerformanceProvider from "@/components/providers/PerformanceProvider";
 
 // Configure Antonio font from Google Fonts
 const antonio = Antonio({
@@ -79,17 +82,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Initialize performance monitoring on client side
-  if (typeof window !== "undefined") {
-    initializePerformanceMonitoring();
-  }
-
   return (
     <html lang="en" className={`${antonio.variable} ${proximaNova.variable}`}>
       <body className="antialiased">
-        <GSAPErrorBoundary>
-          <GSAPProvider>{children}</GSAPProvider>
-        </GSAPErrorBoundary>
+        <NoScriptFallback>
+          <ErrorProvider>
+            <GSAPErrorBoundary>
+              <GSAPProvider>{children}</GSAPProvider>
+            </GSAPErrorBoundary>
+            <ErrorNotification />
+          </ErrorProvider>
+          <PerformanceProvider />
+        </NoScriptFallback>
       </body>
     </html>
   );

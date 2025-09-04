@@ -1,8 +1,11 @@
 // Providers
 export { default as GSAPProvider } from "./providers/GSAPProvider";
+export { default as ErrorProvider } from "./providers/ErrorProvider";
 
 // Error Boundaries
 export { default as GSAPErrorBoundary } from "./error/GSAPErrorBoundary";
+export { default as MediaErrorBoundary } from "./error/MediaErrorBoundary";
+export { default as SectionErrorBoundary } from "./error/SectionErrorBoundary";
 
 // Test Components
 export { default as GSAPTest } from "./test/GSAPTest";
@@ -31,3 +34,10 @@ export { default as VideoPinSection } from "./animations/VideoPinSection";
 // UI Components
 export { default as OptimizedImage } from "./ui/OptimizedImage";
 export { default as OptimizedVideo } from "./ui/OptimizedVideo";
+export { default as LoadingSpinner } from "./ui/LoadingSpinner";
+export { default as MediaLoader } from "./ui/MediaLoader";
+export { default as VideoLoader } from "./ui/VideoLoader";
+export { default as ImageLoader } from "./ui/ImageLoader";
+export { default as NoScriptFallback } from "./ui/NoScriptFallback";
+export { default as ErrorNotification } from "./ui/ErrorNotification";
+export { default as SafeSection } from "./ui/SafeSection";
