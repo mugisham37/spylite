@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { cards } from "../constants";
 import { TestimonialVideoCard } from "../components/TestimonialVideoCard";
 import type { TestimonialCardData } from "../constants";
@@ -96,7 +96,7 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({
 
     // Cleanup function
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
+      ScrollTrigger.getAll().forEach((trigger: any) => {
         if (trigger.trigger === sectionRef.current) {
           trigger.kill();
         }
@@ -109,19 +109,25 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({
       {/* Title Section */}
       <div className="absolute size-full flex flex-col items-center pt-[5vw]">
         <h1
-          ref={(el) => (titleRefs.current.first = el)}
+          ref={(el) => {
+            titleRefs.current.first = el;
+          }}
           className="text-black first-title text-[8vw] md:text-[6vw] font-bold leading-none"
         >
           What's
         </h1>
         <h1
-          ref={(el) => (titleRefs.current.second = el)}
+          ref={(el) => {
+            titleRefs.current.second = el;
+          }}
           className="text-light-brown sec-title text-[8vw] md:text-[6vw] font-bold leading-none"
         >
           Everyone
         </h1>
         <h1
-          ref={(el) => (titleRefs.current.third = el)}
+          ref={(el) => {
+            titleRefs.current.third = el;
+          }}
           className="text-black third-title text-[8vw] md:text-[6vw] font-bold leading-none"
         >
           Talking

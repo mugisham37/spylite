@@ -141,7 +141,7 @@ export interface VideoPinSectionProps {
 
 // Testimonial section types
 export interface TestimonialSectionProps extends BaseComponentProps {
-  testimonials: TestimonialItem[];
+  testimonials?: TestimonialItem[];
   animationConfig?: SectionAnimationConfig;
 }
 
@@ -160,6 +160,22 @@ export interface TestimonialCardProps {
   testimonial: TestimonialItem;
   isActive?: boolean;
   onClick?: () => void;
+}
+
+// Video testimonial card types (TestimonialCardData imported from constants)
+export interface TestimonialVideoCardProps {
+  card: {
+    id: string;
+    src: string;
+    rotation: string;
+    name: string;
+    img: string;
+    translation?: string;
+  };
+  index: number;
+  className?: string;
+  onPlay?: (index: number) => void;
+  onPause?: (index: number) => void;
 }
 
 // Footer section types

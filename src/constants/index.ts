@@ -20,6 +20,14 @@ export interface TestimonialCardData {
   translation?: string;
 }
 
+// Enhanced testimonial interface for future use
+export interface TestimonialData extends TestimonialCardData {
+  role?: string;
+  content?: string;
+  rating?: number;
+  videoPoster?: string;
+}
+
 // Flavor data
 export const flavorlists: FlavorData[] = [
   {
