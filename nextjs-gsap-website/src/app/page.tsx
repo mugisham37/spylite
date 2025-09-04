@@ -1,5 +1,5 @@
 import GSAPTest from "@/components/test/GSAPTest";
-import { MessageSection } from "@/components";
+import { MessageSection, FlavorSection, NutritionSection } from "@/components";
 
 export default function Home() {
   return (
@@ -191,6 +191,12 @@ export default function Home() {
 
       {/* MessageSection Test */}
       <MessageSection />
+
+      {/* FlavorSection Test */}
+      <FlavorSection />
+
+      {/* NutritionSection Test */}
+      <NutritionSection />
     </div>
   );
 }

@@ -56,7 +56,7 @@
   - Test scroll-triggered animations match original timing and easing
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 8. Migrate FlavorSection with horizontal scroll
+- [x] 8. Migrate FlavorSection with horizontal scroll
 
   - Create FlavorSection and FlavorSlider components
   - Implement complex horizontal scroll animation with GSAP ScrollTrigger
@@ -65,7 +65,7 @@
   - Test horizontal scroll performance and visual accuracy
   - _Requirements: 1.1, 1.2, 3.1, 6.1_
 
-- [ ] 9. Migrate NutritionSection with background effects
+- [x] 9. Migrate NutritionSection with background effects
 
   - Create NutritionSection component with radial gradient background
   - Implement GSAP animations for nutrition information reveal
