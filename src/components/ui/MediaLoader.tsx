@@ -26,7 +26,16 @@ export default function MediaLoader({
       setTimeout(() => setShowContent(true), 100);
     }, minLoadTime);
 
-    return () => clearTimeout(timer);
+    // Also set a fallback in case something goes wrong
+    const fallbackTimer = setTimeout(() => {
+      setIsLoading(false);
+      setShowContent(true);
+    }, minLoadTime + 2000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(fallbackTimer);
+    };
   }, [minLoadTime]);
 
   if (isLoading) {

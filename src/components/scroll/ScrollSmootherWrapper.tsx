@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,37 +15,44 @@ export default function ScrollSmootherWrapper({
   const scrollSmootherRef = useRef<ScrollSmoother | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useGSAP(() => {
     // Ensure elements exist before initializing ScrollSmoother
     if (!wrapperRef.current || !contentRef.current) return;
 
-    try {
-      // Kill any existing ScrollSmoother instance
-      if (scrollSmootherRef.current) {
-        scrollSmootherRef.current.kill();
+    // Add a small delay to ensure all content is rendered
+    const initTimer = setTimeout(() => {
+      try {
+        // Kill any existing ScrollSmoother instance
+        if (scrollSmootherRef.current) {
+          scrollSmootherRef.current.kill();
+        }
+
+        // Create ScrollSmoother instance with safer settings
+        scrollSmootherRef.current = ScrollSmoother.create({
+          wrapper: wrapperRef.current,
+          content: contentRef.current,
+          smooth: 1, // Reduced smooth scrolling intensity
+          effects: true, // Enable data-speed and data-lag effects
+          smoothTouch: 0, // Disable smooth scrolling on touch devices to prevent issues
+          normalizeScroll: false, // Let browser handle normal scroll behavior
+          ignoreMobileResize: true, // Prevent issues on mobile resize
+        });
+
+        // Refresh ScrollTrigger after ScrollSmoother initialization
+        ScrollTrigger.refresh();
+        setIsInitialized(true);
+      } catch (error) {
+        console.warn("ScrollSmoother initialization failed:", error);
+        // Fallback: ensure ScrollTrigger still works without ScrollSmoother
+        ScrollTrigger.refresh();
+        setIsInitialized(true);
       }
-
-      // Create ScrollSmoother instance
-      scrollSmootherRef.current = ScrollSmoother.create({
-        wrapper: wrapperRef.current,
-        content: contentRef.current,
-        smooth: 3, // Smooth scrolling intensity (matches original)
-        effects: true, // Enable data-speed and data-lag effects
-        smoothTouch: 0.1, // Smooth scrolling on touch devices
-        normalizeScroll: true, // Normalize scroll behavior across browsers
-        ignoreMobileResize: true, // Prevent issues on mobile resize
-      });
-
-      // Refresh ScrollTrigger after ScrollSmoother initialization
-      ScrollTrigger.refresh();
-    } catch (error) {
-      console.warn("ScrollSmoother initialization failed:", error);
-      // Fallback: ensure ScrollTrigger still works without ScrollSmoother
-      ScrollTrigger.refresh();
-    }
+    }, 100);
 
     return () => {
+      clearTimeout(initTimer);
       if (scrollSmootherRef.current) {
         scrollSmootherRef.current.kill();
         scrollSmootherRef.current = null;
@@ -64,8 +71,8 @@ export default function ScrollSmootherWrapper({
   }, []);
 
   return (
-    <div id="smooth-wrapper" ref={wrapperRef}>
-      <div id="smooth-content" ref={contentRef}>
+    <div id="smooth-wrapper" ref={wrapperRef} className="relative">
+      <div id="smooth-content" ref={contentRef} className="relative">
         {children}
       </div>
     </div>

@@ -27,20 +27,22 @@ body {
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
+  min-height: 100vh;
+}
+
+body {
+  position: relative;
 }
 
 /* ScrollSmoother specific styles */
 #smooth-wrapper {
-  overflow: hidden;
-  position: fixed;
-  height: 100%;
+  position: relative;
   width: 100%;
-  top: 0;
-  left: 0;
+  min-height: 100vh;
 }
 
 #smooth-content {
-  overflow: visible;
+  position: relative;
   width: 100%;
   will-change: transform;
 }
@@ -60,6 +62,19 @@ img,
 video {
   max-width: 100%;
   height: auto;
+}
+
+/* Debug styles to ensure sections are visible */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
 }
 
 body::-webkit-scrollbar {
