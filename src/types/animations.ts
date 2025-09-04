@@ -94,15 +94,7 @@ export interface ScrollAnimationConfig {
   id?: string;
 }
 
-// Parallax animation configuration
-export interface ParallaxConfig {
-  trigger: string;
-  start?: string;
-  end?: string;
-  speed: number;
-  direction?: "vertical" | "horizontal";
-  ease?: string;
-}
+// Parallax animation configuration is defined in gsap.ts
 
 // Morphing animation configuration
 export interface MorphConfig {
@@ -188,16 +180,7 @@ export interface IntersectionAnimationConfig {
   animation: EntranceAnimationConfig;
 }
 
-// Custom animation hook configuration
-export interface UseAnimationConfig {
-  autoPlay?: boolean;
-  paused?: boolean;
-  reversed?: boolean;
-  onComplete?: () => void;
-  onStart?: () => void;
-  onUpdate?: (progress: number) => void;
-  dependencies?: unknown[];
-}
+// UseAnimationConfig is defined in gsap.ts
 
 // Animation performance configuration
 export interface AnimationPerformanceConfig {

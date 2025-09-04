@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Antonio } from "next/font/google";
+import { GSAPProvider } from "@/providers/GSAPProvider";
 import "./globals.css";
 
 // Font configurations
@@ -73,7 +74,16 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
       </head>
-      <body className="font-antonio antialiased">{children}</body>
+      <body className="font-antonio antialiased">
+        <GSAPProvider
+          enableScrollTrigger={true}
+          enableScrollSmoother={true}
+          enableSplitText={true}
+          enableTextPlugin={true}
+        >
+          {children}
+        </GSAPProvider>
+      </body>
     </html>
   );
 }

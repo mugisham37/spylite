@@ -122,6 +122,27 @@ export interface UseGSAPReturn {
   kill: () => void;
 }
 
+// Animation configuration for useGSAP hook
+export interface UseAnimationConfig {
+  autoPlay?: boolean;
+  paused?: boolean;
+  reversed?: boolean;
+  onComplete?: () => void;
+  onStart?: () => void;
+  onUpdate?: (progress: number) => void;
+  dependencies?: unknown[];
+}
+
+// Parallax animation configuration
+export interface ParallaxConfig {
+  trigger: string;
+  start?: string;
+  end?: string;
+  speed: number;
+  direction?: "vertical" | "horizontal";
+  ease?: string;
+}
+
 // ScrollTrigger hook return type
 export interface UseScrollTriggerReturn {
   scrollTrigger: ScrollTriggerInstance | null;

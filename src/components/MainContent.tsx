@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { GSAPTest } from "./GSAPTest";
 
 export default function MainContent() {
   useEffect(() => {
@@ -11,11 +12,15 @@ export default function MainContent() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center space-y-4">
+      <div className="flex items-center justify-center min-h-screen flex-col">
+        <div className="text-center space-y-4 mb-8">
           <h1 className="text-4xl font-antonio font-bold">SPYLT</h1>
           <p className="text-xl">Next.js Foundation Setup Complete</p>
           <p className="text-gray-400">Ready for component migration</p>
+        </div>
+
+        <div className="bg-white text-black rounded-lg">
+          <GSAPTest />
         </div>
       </div>
     </main>
