@@ -3,6 +3,7 @@ import {
   FlavorSection,
   NutritionSection,
   BenefitSection,
+  TestimonialSection,
 } from "@/components";
 
 // Placeholder components for sections not yet migrated
@@ -20,25 +21,6 @@ const HeroSection = () => (
         milk protein drinks.
       </h2>
       <button className="hero-button">Discover More</button>
-    </div>
-  </section>
-);
-
-const TestimonialSection = () => (
-  <section className="testimonials-section">
-    <div className="flex-center h-full">
-      <div className="col-center gap-8 p-8 max-w-4xl w-full">
-        <h1 className="general-title text-dark-brown text-center">
-          Testimonials
-        </h1>
-        <p className="font-paragraph text-dark-brown text-center max-w-2xl">
-          Customer testimonials and reviews will be displayed here.
-          <br />
-          <span className="text-mid-brown">
-            Coming Soon - Migration in Progress
-          </span>
-        </p>
-      </div>
     </div>
   </section>
 );
@@ -82,7 +64,7 @@ export default function Home() {
           {/* 5. Benefit Section - ✅ Migrated */}
           <BenefitSection />
 
-          {/* 6. Testimonial Section - 🚧 Placeholder */}
+          {/* 6. Testimonial Section - ✅ Migrated */}
           <TestimonialSection />
 
           {/* 7. Footer Section - 🚧 Placeholder */}

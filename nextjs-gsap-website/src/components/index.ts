@@ -14,6 +14,7 @@ export { default as MessageSection } from "./sections/MessageSection";
 export { default as FlavorSection } from "./sections/FlavorSection";
 export { default as NutritionSection } from "./sections/NutritionSection";
 export { default as BenefitSection } from "./sections/BenefitSection";
+export { default as TestimonialSection } from "./sections/TestimonialSection";
 
 // Animation Components
 export { default as FlavorTitle } from "./animations/FlavorTitle";
