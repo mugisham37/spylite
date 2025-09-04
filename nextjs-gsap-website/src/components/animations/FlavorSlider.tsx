@@ -6,7 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { useResponsive } from "@/lib";
 import { flavorlists } from "@/lib";
-import Image from "next/image";
+import OptimizedImage from "../ui/OptimizedImage";
+import { imageDimensions } from "@/lib/utils/imageOptimization";
 
 const FlavorSlider = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -79,31 +80,37 @@ const FlavorSlider = () => {
             key={flavor.name}
             className={`relative z-30 lg:w-[50vw] w-96 lg:h-[70vh] md:w-[90vw] md:h-[50vh] h-80 flex-none ${flavor.rotation}`}
           >
-            <Image
+            <OptimizedImage
               src={`/images/${flavor.color}-bg.svg`}
-              alt=""
+              alt={`${flavor.name} background`}
               className="absolute bottom-0"
               width={800}
               height={600}
               priority={flavor.color === "brown"} // Prioritize first image
+              sizes={imageDimensions.flavor.sizes}
+              quality={90}
             />
 
-            <Image
-              src={`/images/${flavor.color}-drink.svg`}
+            <OptimizedImage
+              src={`/images/${flavor.color}-drink.webp`}
               alt={`${flavor.name} drink`}
               className="drinks"
               width={400}
               height={600}
               priority={flavor.color === "brown"} // Prioritize first image
+              sizes={imageDimensions.flavor.sizes}
+              quality={85}
             />
 
-            <Image
-              src={`/images/${flavor.color}-elements.svg`}
+            <OptimizedImage
+              src={`/images/${flavor.color}-elements.webp`}
               alt={`${flavor.name} elements`}
               className="elements"
               width={800}
               height={400}
               priority={flavor.color === "brown"} // Prioritize first image
+              sizes={imageDimensions.flavor.sizes}
+              quality={85}
             />
 
             <h1>{flavor.name}</h1>

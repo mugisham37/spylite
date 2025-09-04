@@ -3,7 +3,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useMediaQuery } from "react-responsive";
-import Image from "next/image";
+import OptimizedImage from "../ui/OptimizedImage";
+import OptimizedVideo from "../ui/OptimizedVideo";
+import { videoConfigs } from "@/lib/utils/imageOptimization";
 import { VideoPinSectionProps } from "@/types/components";
 
 const VideoPinSection = ({
@@ -44,32 +46,39 @@ const VideoPinSection = ({
         }}
         className="size-full video-box"
       >
-        <video
+        <OptimizedVideo
           src={videoSrc}
           playsInline
           muted
           loop
           autoPlay
-          preload="metadata"
+          preload={videoConfigs.benefit.preload}
           poster={posterSrc}
+          lazy={videoConfigs.benefit.lazy}
+          className="size-full absolute inset-0 object-cover"
         />
 
         <div className="abs-center md:scale-100 scale-200">
-          <Image
+          <OptimizedImage
             src="/images/circle-text.svg"
             alt="Circular text animation"
             width={200}
             height={200}
             className="spin-circle"
             priority={false}
+            sizes="200px"
+            quality={95}
           />
           <div className="play-btn">
-            <Image
+            <OptimizedImage
               src="/images/play.svg"
               alt="Play button"
               width={48}
               height={48}
               className="size-[3vw] ml-[.5vw]"
+              priority={false}
+              sizes="48px"
+              quality={95}
             />
           </div>
         </div>

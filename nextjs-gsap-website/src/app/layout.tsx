@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import GSAPProvider from "@/components/providers/GSAPProvider";
 import GSAPErrorBoundary from "@/components/error/GSAPErrorBoundary";
+import { initializePerformanceMonitoring } from "@/lib/utils/performanceMonitoring";
 
 // Configure Antonio font from Google Fonts
 const antonio = Antonio({
@@ -14,12 +15,14 @@ const antonio = Antonio({
   preload: true,
 });
 
-// Configure ProximaNova local font
+// Configure ProximaNova local font with optimized loading
 const proximaNova = localFont({
   src: "./fonts/ProximaNova-Regular.otf",
   variable: "--font-proxima-nova",
   display: "swap",
   preload: true,
+  fallback: ["system-ui", "arial"],
+  adjustFontFallback: false,
 });
 
 export const viewport = {
@@ -76,6 +79,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Initialize performance monitoring on client side
+  if (typeof window !== "undefined") {
+    initializePerformanceMonitoring();
+  }
+
   return (
     <html lang="en" className={`${antonio.variable} ${proximaNova.variable}`}>
       <body className="antialiased">

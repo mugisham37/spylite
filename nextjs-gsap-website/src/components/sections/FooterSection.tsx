@@ -1,7 +1,9 @@
 "use client";
 
 import { useMediaQuery } from "react-responsive";
-import Image from "next/image";
+import OptimizedImage from "../ui/OptimizedImage";
+import OptimizedVideo from "../ui/OptimizedVideo";
+import { imageDimensions, videoConfigs } from "@/lib/utils/imageOptimization";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
@@ -69,13 +71,15 @@ const FooterSection: React.FC<FooterSectionProps> = ({ className }) => {
 
   return (
     <section className={`footer-section ${className || ""}`}>
-      <Image
+      <OptimizedImage
         src="/images/footer-dip.png"
-        alt=""
+        alt="Footer decorative border"
         width={1920}
         height={200}
         className="w-full object-cover -translate-y-1"
-        priority
+        priority={false}
+        sizes={imageDimensions.footer.sizes}
+        quality={90}
       />
 
       <div className="2xl:h-[110dvh] relative md:pt-[20vh] pt-[10vh]">
@@ -89,22 +93,27 @@ const FooterSection: React.FC<FooterSectionProps> = ({ className }) => {
         </div>
 
         {isMobile ? (
-          <Image
+          <OptimizedImage
             src="/images/footer-drink.png"
             alt="Footer drink"
             width={400}
             height={600}
             className="absolute top-0 object-contain"
-            priority
+            priority={false}
+            sizes={imageDimensions.testimonial.sizes}
+            quality={85}
           />
         ) : (
-          <video
+          <OptimizedVideo
             src="/videos/splash.mp4"
             autoPlay
             playsInline
             muted
             loop
             className="absolute top-0 object-contain mix-blend-lighten"
+            preload={videoConfigs.footer.preload}
+            lazy={videoConfigs.footer.lazy}
+            poster={videoConfigs.footer.poster}
           />
         )}
 
@@ -113,30 +122,39 @@ const FooterSection: React.FC<FooterSectionProps> = ({ className }) => {
           className="flex-center gap-5 relative z-10 md:mt-20 mt-5"
         >
           <div className="social-btn">
-            <Image
+            <OptimizedImage
               src="/images/yt.svg"
               alt="YouTube"
               width={32}
               height={32}
               className="w-8 h-8"
+              priority={false}
+              sizes={imageDimensions.icon.sizes}
+              quality={95}
             />
           </div>
           <div className="social-btn">
-            <Image
+            <OptimizedImage
               src="/images/insta.svg"
               alt="Instagram"
               width={32}
               height={32}
               className="w-8 h-8"
+              priority={false}
+              sizes={imageDimensions.icon.sizes}
+              quality={95}
             />
           </div>
           <div className="social-btn">
-            <Image
+            <OptimizedImage
               src="/images/tiktok.svg"
               alt="TikTok"
               width={32}
               height={32}
               className="w-8 h-8"
+              priority={false}
+              sizes={imageDimensions.icon.sizes}
+              quality={95}
             />
           </div>
         </div>
@@ -169,12 +187,15 @@ const FooterSection: React.FC<FooterSectionProps> = ({ className }) => {
                 placeholder="Enter your email"
                 className="w-full placeholder:font-sans placeholder:text-[#999999] bg-transparent outline-none text-milk"
               />
-              <Image
+              <OptimizedImage
                 src="/images/arrow.svg"
-                alt="arrow"
+                alt="Submit arrow"
                 width={24}
                 height={24}
                 className="cursor-pointer hover:scale-110 transition-transform"
+                priority={false}
+                sizes="24px"
+                quality={95}
               />
             </div>
           </div>

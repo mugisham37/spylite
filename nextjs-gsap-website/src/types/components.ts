@@ -25,3 +25,7 @@ export interface NavBarProps {
 export interface FooterSectionProps {
   className?: string;
 }
+
+export interface HeroSectionProps {
+  className?: string;
+}

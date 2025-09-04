@@ -5,6 +5,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { cards } from "@/lib/constants";
 import { useResponsive } from "@/lib/utils/mediaQuery";
+import OptimizedVideo from "../ui/OptimizedVideo";
+import { videoConfigs } from "@/lib/utils/imageOptimization";
 
 const TestimonialSection = () => {
   const vdRef = useRef<(HTMLVideoElement | null)[]>([]);
@@ -125,37 +127,20 @@ const TestimonialSection = () => {
             onMouseEnter={() => handlePlay(index)}
             onMouseLeave={() => handlePause(index)}
           >
-            <video
+            <OptimizedVideo
               ref={(el) => {
                 vdRef.current[index] = el;
               }}
               src={card.src}
-              poster={card.img} // Use the person image as poster
+              poster={card.img}
               playsInline
               muted
               loop
               className="size-full object-cover"
-              onLoadedMetadata={() => handleVideoLoad(index)}
+              onLoad={() => handleVideoLoad(index)}
               onError={(e) => handleVideoError(index, e)}
-              preload="metadata"
-            />
-
-            {/* Fallback image overlay for loading states */}
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-300"
-              style={{ backgroundImage: `url(${card.img})` }}
-              onLoad={() => {
-                // Hide fallback when video is ready
-                const video = vdRef.current[index];
-                if (video && video.readyState >= 2) {
-                  (
-                    document.querySelector(
-                      `[data-fallback="${index}"]`
-                    ) as HTMLElement
-                  )?.classList.add("opacity-0");
-                }
-              }}
-              data-fallback={index}
+              preload={videoConfigs.testimonial.preload}
+              lazy={videoConfigs.testimonial.lazy}
             />
           </div>
         ))}

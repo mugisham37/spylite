@@ -11,6 +11,7 @@ export { default as BenefitSectionTest } from "./test/BenefitSectionTest";
 export { default as FooterNavTest } from "./test/FooterNavTest";
 
 // Sections
+export { default as HeroSection } from "./sections/HeroSection";
 export { default as MessageSection } from "./sections/MessageSection";
 export { default as FlavorSection } from "./sections/FlavorSection";
 export { default as NutritionSection } from "./sections/NutritionSection";
@@ -26,3 +27,7 @@ export { default as FlavorTitle } from "./animations/FlavorTitle";
 export { default as FlavorSlider } from "./animations/FlavorSlider";
 export { default as ClipPathTitle } from "./animations/ClipPathTitle";
 export { default as VideoPinSection } from "./animations/VideoPinSection";
+
+// UI Components
+export { default as OptimizedImage } from "./ui/OptimizedImage";
+export { default as OptimizedVideo } from "./ui/OptimizedVideo";

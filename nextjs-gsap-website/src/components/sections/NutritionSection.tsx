@@ -7,7 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useResponsive } from "@/lib/utils/mediaQuery";
 import { nutrientLists, type NutrientData } from "@/lib/constants";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import OptimizedImage from "../ui/OptimizedImage";
+import { imageDimensions } from "@/lib/utils/imageOptimization";
 
 const NutritionSection = () => {
   const { isMobile } = useResponsive();
@@ -107,23 +108,27 @@ const NutritionSection = () => {
   return (
     <section className="nutrition-section">
       {/* Top decorative image */}
-      <Image
+      <OptimizedImage
         src="/images/slider-dip.png"
-        alt=""
+        alt="Decorative top border"
         width={1920}
         height={200}
         className="w-full object-cover"
         priority={false}
+        sizes={imageDimensions.nutrition.sizes}
+        quality={90}
       />
 
       {/* Large background image */}
-      <Image
+      <OptimizedImage
         src="/images/big-img.png"
-        alt=""
+        alt="Nutrition background"
         width={1920}
         height={1080}
         className="big-img"
         priority={false}
+        sizes={imageDimensions.nutrition.sizes}
+        quality={85}
       />
 
       <div className="flex md:flex-row flex-col justify-between md:px-10 px-5 mt-14 md:mt-0">
