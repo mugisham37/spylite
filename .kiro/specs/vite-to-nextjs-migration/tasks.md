@@ -49,14 +49,14 @@
   - Implement responsive behavior identical to original
   - _Requirements: 1.1, 1.6, 6.1, 6.2_
 
-- [-] 8. Hero Section Implementation
+- [x] 8. Hero Section Implementation
 
   - Migrate HeroSection with video background and responsive image fallbacks
   - Implement SplitText character animations with exact timing preservation
   - Set up ScrollTrigger animations for hero container transformations
   - _Requirements: 2.1, 2.2, 2.4, 4.3_
 
-- [ ] 9. Message Section with Scroll Animations
+- [x] 9. Message Section with Scroll Animations
 
   - Convert MessageSection with proper GSAP timeline animations
   - Implement text scroll animations with exact positioning and timing

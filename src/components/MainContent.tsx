@@ -1,26 +1,31 @@
 "use client";
 
 import { useEffect } from "react";
-import { GSAPTest } from "./GSAPTest";
+import dynamic from "next/dynamic";
+import { SectionSkeleton } from "@/components/LoadingStates";
+
+// Dynamic imports for sections with proper loading states
+const HeroSection = dynamic(() => import("@/sections/HeroSection"), {
+  ssr: false,
+  loading: () => <SectionSkeleton showTitle={false} />,
+});
+
+const MessageSection = dynamic(() => import("@/sections/MessageSection"), {
+  ssr: false,
+  loading: () => <SectionSkeleton showTitle={false} />,
+}) as React.ComponentType<{}>;
 
 export default function MainContent() {
   useEffect(() => {
-    // This will be where we initialize GSAP and other client-side functionality
-    // For now, just a placeholder to ensure the Next.js setup works
-    console.log("MainContent mounted - ready for GSAP integration");
+    console.log("MainContent mounted - GSAP sections ready");
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="flex items-center justify-center min-h-screen flex-col">
-        <div className="text-center space-y-4 mb-8">
-          <h1 className="text-4xl font-antonio font-bold">SPYLT</h1>
-          <p className="text-xl">Next.js Foundation Setup Complete</p>
-          <p className="text-gray-400">Ready for component migration</p>
-        </div>
-
-        <div className="bg-white text-black rounded-lg">
-          <GSAPTest />
+    <main>
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <HeroSection />
+          <MessageSection />
         </div>
       </div>
     </main>
