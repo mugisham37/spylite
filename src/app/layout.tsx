@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Antonio } from "next/font/google";
+import localFont from "next/font/local";
 import { GSAPProvider } from "@/providers/GSAPProvider";
 import "./globals.css";
 
@@ -9,6 +10,19 @@ const antonio = Antonio({
   display: "swap",
   preload: true,
   variable: "--font-antonio",
+});
+
+const proximaNova = localFont({
+  src: [
+    {
+      path: "../../public/fonts/ProximaNova-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+  preload: true,
+  variable: "--font-proxima-nova",
 });
 
 export const metadata: Metadata = {
@@ -66,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={antonio.variable}>
+    <html lang="en" className={`${antonio.variable} ${proximaNova.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
