@@ -69,9 +69,12 @@ export const initializeGSAP = (
     });
 
     // Set ScrollTrigger defaults
-    const { snap: _, ...scrollTriggerDefaults } =
+    const { snap, ...scrollTriggerDefaults } =
       mergedConfig.scrollTrigger.defaults;
     ScrollTrigger.defaults(scrollTriggerDefaults);
+
+    // Use snap if needed (currently unused but available)
+    void snap;
 
     // Initialize performance monitoring
     if (typeof window !== "undefined") {

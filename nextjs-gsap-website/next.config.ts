@@ -47,7 +47,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
 
   // Webpack configuration for GSAP and performance
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, { dev, isServer }) => {
     // Bundle analyzer
     if (process.env.ANALYZE) {
       const BundleAnalyzerPlugin = require("@next/bundle-analyzer")({

@@ -2,77 +2,48 @@
  * Dynamic import utilities for code splitting and performance optimization
  */
 
-import { lazy, ComponentType } from "react";
-import type {
-  HeroSectionProps,
-  FlavorSectionProps,
-  MessageSectionProps,
-  NutritionSectionProps,
-  BenefitSectionProps,
-  TestimonialSectionProps,
-  FooterSectionProps,
-} from "@/types/components";
+import React, { lazy, ComponentType } from "react";
 
 // Lazy load section components for better code splitting
-export const LazyHeroSection = lazy(() =>
-  import("@/components/sections/HeroSection").then((module) => ({
-    default: module.HeroSection,
-  }))
+export const LazyHeroSection = lazy(
+  () => import("@/components/sections/HeroSection")
 );
 
-export const LazyFlavorSection = lazy(() =>
-  import("@/components/sections/FlavorSection").then((module) => ({
-    default: module.FlavorSection,
-  }))
+export const LazyFlavorSection = lazy(
+  () => import("@/components/sections/FlavorSection")
 );
 
-export const LazyMessageSection = lazy(() =>
-  import("@/components/sections/MessageSection").then((module) => ({
-    default: module.MessageSection,
-  }))
+export const LazyMessageSection = lazy(
+  () => import("@/components/sections/MessageSection")
 );
 
-export const LazyNutritionSection = lazy(() =>
-  import("@/components/sections/NutritionSection").then((module) => ({
-    default: module.NutritionSection,
-  }))
+export const LazyNutritionSection = lazy(
+  () => import("@/components/sections/NutritionSection")
 );
 
-export const LazyBenefitSection = lazy(() =>
-  import("@/components/sections/BenefitSection").then((module) => ({
-    default: module.BenefitSection,
-  }))
+export const LazyBenefitSection = lazy(
+  () => import("@/components/sections/BenefitSection")
 );
 
-export const LazyTestimonialSection = lazy(() =>
-  import("@/components/sections/TestimonialSection").then((module) => ({
-    default: module.TestimonialSection,
-  }))
+export const LazyTestimonialSection = lazy(
+  () => import("@/components/sections/TestimonialSection")
 );
 
-export const LazyFooterSection = lazy(() =>
-  import("@/components/sections/FooterSection").then((module) => ({
-    default: module.FooterSection,
-  }))
+export const LazyFooterSection = lazy(
+  () => import("@/components/sections/FooterSection")
 );
 
 // Lazy load animation components
-export const LazyClipPathTitle = lazy(() =>
-  import("@/components/animations/ClipPathTitle").then((module) => ({
-    default: module.ClipPathTitle,
-  }))
+export const LazyClipPathTitle = lazy(
+  () => import("@/components/animations/ClipPathTitle")
 );
 
-export const LazyFlavorSlider = lazy(() =>
-  import("@/components/animations/FlavorSlider").then((module) => ({
-    default: module.FlavorSlider,
-  }))
+export const LazyFlavorSlider = lazy(
+  () => import("@/components/animations/FlavorSlider")
 );
 
-export const LazyVideoPinSection = lazy(() =>
-  import("@/components/animations/VideoPinSection").then((module) => ({
-    default: module.VideoPinSection,
-  }))
+export const LazyVideoPinSection = lazy(
+  () => import("@/components/animations/VideoPinSection")
 );
 
 // GSAP plugins dynamic imports for better tree shaking
@@ -146,7 +117,7 @@ export const preloadOnScroll = (threshold: number = 0.5) => {
 };
 
 // Type-safe component loader with error handling
-export const createComponentLoader = <T extends ComponentType<any>>(
+export const createComponentLoader = <T extends ComponentType<unknown>>(
   importFn: () => Promise<{ default: T }>,
   fallback?: ComponentType
 ) => {
@@ -161,13 +132,17 @@ export const createComponentLoader = <T extends ComponentType<any>>(
       }
 
       // Return a minimal error component
-      return {
-        default: (() => (
-          <div className="p-4 text-center text-red-500">
-            Failed to load component
-          </div>
-        )) as T,
+      const ErrorComponent = () => {
+        return React.createElement(
+          "div",
+          {
+            className: "p-4 text-center text-red-500",
+          },
+          "Failed to load component"
+        );
       };
+
+      return { default: ErrorComponent as T };
     }
   });
 };

@@ -7,7 +7,7 @@ import GSAPErrorBoundary from "@/components/error/GSAPErrorBoundary";
 import ErrorProvider from "@/components/providers/ErrorProvider";
 import ErrorNotification from "@/components/ui/ErrorNotification";
 import NoScriptFallback from "@/components/ui/NoScriptFallback";
-import PerformanceProvider from "@/components/providers/PerformanceProvider";
+import { PerformanceProvider } from "@/components/providers/PerformanceProvider";
 
 // Configure Antonio font from Google Fonts
 const antonio = Antonio({
@@ -87,12 +87,13 @@ export default function RootLayout({
       <body className="antialiased">
         <NoScriptFallback>
           <ErrorProvider>
-            <GSAPErrorBoundary>
-              <GSAPProvider>{children}</GSAPProvider>
-            </GSAPErrorBoundary>
-            <ErrorNotification />
+            <PerformanceProvider autoStart={true} enableOptimizations={true}>
+              <GSAPErrorBoundary>
+                <GSAPProvider>{children}</GSAPProvider>
+              </GSAPErrorBoundary>
+              <ErrorNotification />
+            </PerformanceProvider>
           </ErrorProvider>
-          <PerformanceProvider />
         </NoScriptFallback>
       </body>
     </html>
