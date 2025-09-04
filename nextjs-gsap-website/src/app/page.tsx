@@ -4,6 +4,8 @@ import {
   NutritionSection,
   BenefitSection,
   TestimonialSection,
+  FooterSection,
+  NavBar,
 } from "@/components";
 
 // Placeholder components for sections not yet migrated
@@ -25,49 +27,20 @@ const HeroSection = () => (
   </section>
 );
 
-const FooterSection = () => (
-  <section className="footer-section">
-    <div className="flex-center h-full">
-      <div className="col-center gap-8 p-8 max-w-4xl w-full">
-        <h1 className="general-title text-milk text-center">Footer Section</h1>
-        <p className="font-paragraph text-milk text-center max-w-2xl">
-          Contact information, social links, and company details.
-          <br />
-          <span className="text-light-brown">
-            Coming Soon - Migration in Progress
-          </span>
-        </p>
-      </div>
-    </div>
-  </section>
-);
-
 export default function Home() {
   return (
     <main>
-      {/* Navigation would go here */}
+      {/* Navigation - ✅ Migrated */}
+      <NavBar />
 
       <div id="smooth-wrapper">
         <div id="smooth-content">
-          {/* 1. Hero Section - 🚧 Placeholder */}
           <HeroSection />
-
-          {/* 2. Message Section - ✅ Migrated */}
           <MessageSection />
-
-          {/* 3. Flavor Section - ✅ Migrated */}
           <FlavorSection />
-
-          {/* 4. Nutrition Section - ✅ Migrated */}
           <NutritionSection />
-
-          {/* 5. Benefit Section - ✅ Migrated */}
           <BenefitSection />
-
-          {/* 6. Testimonial Section - ✅ Migrated */}
           <TestimonialSection />
-
-          {/* 7. Footer Section - 🚧 Placeholder */}
           <FooterSection />
         </div>
       </div>

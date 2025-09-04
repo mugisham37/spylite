@@ -17,3 +17,11 @@ export interface VideoPinSectionProps {
 export interface BenefitSectionProps {
   className?: string;
 }
+
+export interface NavBarProps {
+  className?: string;
+}
+
+export interface FooterSectionProps {
+  className?: string;
+}
