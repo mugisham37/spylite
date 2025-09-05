@@ -345,6 +345,11 @@ declare global {
   interface WindowEventMap extends CustomEventMap {}
   interface DocumentEventMap extends CustomEventMap {}
   interface ElementEventMap extends CustomEventMap {}
+
+  interface Window {
+    scrollSmootherResizeTimer?: number;
+    gtag?: (...args: any[]) => void;
+  }
 }
 
 // Utility types for better development experience
