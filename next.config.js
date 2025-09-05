@@ -5,21 +5,24 @@ const nextConfig = {
     optimizePackageImports: ["gsap", "@gsap/react"],
   },
 
-  // Image optimization configuration
+  // Image optimization configuration with enhanced settings
   images: {
     formats: ["image/webp", "image/avif"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    minimumCacheTTL: 31536000, // 1 year cache for images
+    loader: "default",
+    unoptimized: false,
   },
 
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  generateEtags: false,
+  generateEtags: true, // Enable ETags for better caching
 
-  // Headers for security and performance
+  // Enhanced headers for security and performance
   async headers() {
     return [
       {
@@ -37,14 +40,23 @@ const nextConfig = {
             key: "Referrer-Policy",
             value: "origin-when-cross-origin",
           },
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
         ],
       },
+      // Static assets with long-term caching
       {
         source: "/fonts/(.*)",
         headers: [
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
           },
         ],
       },
@@ -55,6 +67,10 @@ const nextConfig = {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
           },
+          {
+            key: "Vary",
+            value: "Accept",
+          },
         ],
       },
       {
@@ -63,6 +79,44 @@ const nextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Accept-Ranges",
+            value: "bytes",
+          },
+        ],
+      },
+      // SVG files with compression
+      {
+        source: "/(.*)\\.svg",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Content-Encoding",
+            value: "gzip",
+          },
+        ],
+      },
+      // JavaScript and CSS files
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      // API routes with no-cache
+      {
+        source: "/api/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store, no-cache, must-revalidate",
           },
         ],
       },

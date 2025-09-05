@@ -5,3 +5,5 @@ export {
   useTimeline,
   useResponsiveGSAP,
 } from "./useGSAP";
+
+export { default as usePerformanceOptimization } from "./usePerformanceOptimization";

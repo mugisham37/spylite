@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, forwardRef } from "react";
+import { usePerformanceContext } from "@/providers/PerformanceProvider";
 
 interface OptimizedVideoProps {
   src: string;
@@ -23,6 +24,9 @@ interface OptimizedVideoProps {
   lazy?: boolean;
   threshold?: number;
   rootMargin?: string;
+  quality?: "low" | "medium" | "high";
+  enablePreload?: boolean;
+  isAboveFold?: boolean;
 }
 
 const OptimizedVideo = forwardRef<HTMLVideoElement, OptimizedVideoProps>(
@@ -48,6 +52,9 @@ const OptimizedVideo = forwardRef<HTMLVideoElement, OptimizedVideoProps>(
       lazy = true,
       threshold = 0.1,
       rootMargin = "50px",
+      quality = "medium",
+      enablePreload = true,
+      isAboveFold = false,
       ...props
     },
     ref
@@ -57,8 +64,24 @@ const OptimizedVideo = forwardRef<HTMLVideoElement, OptimizedVideoProps>(
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [shouldLoad, setShouldLoad] = useState(!lazy);
+    const [isLowBandwidth, setIsLowBandwidth] = useState(false);
 
-    // Intersection Observer for lazy loading
+    // Use performance context for optimal configuration
+    const performanceContext = usePerformanceContext();
+    const optimalConfig = performanceContext.getOptimalVideoConfig(isAboveFold);
+
+    // Detect connection quality for adaptive loading
+    useEffect(() => {
+      if (typeof navigator !== "undefined" && "connection" in navigator) {
+        const connection = (navigator as any).connection;
+        if (connection) {
+          const effectiveType = connection.effectiveType;
+          setIsLowBandwidth(["slow-2g", "2g", "3g"].includes(effectiveType));
+        }
+      }
+    }, []);
+
+    // Intersection Observer for enhanced lazy loading
     useEffect(() => {
       if (!lazy || shouldLoad) return;
 
@@ -156,12 +179,20 @@ const OptimizedVideo = forwardRef<HTMLVideoElement, OptimizedVideoProps>(
           style={style}
           width={width}
           height={height}
-          autoPlay={autoPlay && isInView}
+          autoPlay={
+            (autoPlay || optimalConfig.autoPlay) && isInView && !isLowBandwidth
+          }
           muted={muted}
           loop={loop}
           playsInline={playsInline}
           controls={controls}
-          preload={shouldLoad ? preload : "none"}
+          preload={
+            shouldLoad
+              ? isLowBandwidth
+                ? "none"
+                : optimalConfig.preload || preload
+              : "none"
+          }
           poster={poster}
           onLoadedData={handleLoadedData}
           onError={handleError}

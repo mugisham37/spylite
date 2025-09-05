@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Antonio } from "next/font/google";
 import localFont from "next/font/local";
 import { GSAPProvider } from "@/providers/GSAPProvider";
+import { PerformanceProvider } from "@/providers/PerformanceProvider";
+import { PerformanceMonitor } from "@/components/PerformanceMonitor";
 import "./globals.css";
 
 // Font configurations
@@ -154,21 +156,45 @@ export default function RootLayout({
         />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+        {/* Preload critical assets for performance */}
+        <link
+          rel="preload"
+          href="/fonts/ProximaNova-Regular.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+        <link rel="preload" href="/images/hero-bg.png" as="image" />
+        <link rel="preload" href="/images/logo.png" as="image" />
+        <link rel="preload" href="/images/nav-logo.svg" as="image" />
+
+        {/* Resource hints for better performance */}
+        <link rel="prefetch" href="/videos/hero-bg.mp4" />
+        <link rel="prefetch" href="/images/hero-img.png" />
       </head>
       <body
         className="font-antonio antialiased bg-milk text-dark-brown"
         suppressHydrationWarning
       >
-        <GSAPProvider
-          enableScrollTrigger={true}
-          enableScrollSmoother={true}
-          enableSplitText={true}
-          enableTextPlugin={true}
+        <PerformanceProvider
+          enableAssetOptimization={true}
+          enableCaching={true}
+          enablePerformanceMonitoring={process.env.NODE_ENV === "development"}
+          enableServiceWorker={process.env.NODE_ENV === "production"}
         >
-          <div id="smooth-wrapper">
-            <div id="smooth-content">{children}</div>
-          </div>
-        </GSAPProvider>
+          <GSAPProvider
+            enableScrollTrigger={true}
+            enableScrollSmoother={true}
+            enableSplitText={true}
+            enableTextPlugin={true}
+          >
+            <div id="smooth-wrapper">
+              <div id="smooth-content">{children}</div>
+            </div>
+            <PerformanceMonitor position="top-right" />
+          </GSAPProvider>
+        </PerformanceProvider>
       </body>
     </html>
   );
