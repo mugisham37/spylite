@@ -37,6 +37,93 @@ const DEFAULT_GSAP_CONFIG: GSAPConfig = {
   },
 };
 
+// Fallback SplitText class
+class FallbackSplitText {
+  public target: Element | null;
+  public config: any;
+  public chars: Element[];
+  public words: Element[];
+  public lines: Element[];
+
+  constructor(target: any, config?: any) {
+    this.target =
+      typeof target === "string" ? document.querySelector(target) : target;
+    this.config = config || {};
+    this.chars = [];
+    this.words = [];
+    this.lines = [];
+
+    if (this.target) {
+      this.split();
+    }
+  }
+
+  split() {
+    const text = this.target?.textContent || "";
+    if (this.config.type === "chars") {
+      // Simple character splitting for fallback
+      if (this.target) {
+        this.target.innerHTML = text
+          .split("")
+          .map(
+            (char: string) =>
+              `<span style="display: inline-block;">${
+                char === " " ? "&nbsp;" : char
+              }</span>`
+          )
+          .join("");
+        this.chars = Array.from(this.target.children) as Element[];
+      }
+    }
+    if (this.config.type === "words") {
+      // Simple word splitting for fallback
+      if (this.target) {
+        this.target.innerHTML = text
+          .split(" ")
+          .map(
+            (word: string) =>
+              `<span style="display: inline-block;">${word}</span>`
+          )
+          .join(" ");
+        this.words = Array.from(this.target.children) as Element[];
+      }
+    }
+  }
+
+  revert() {
+    if (this.target && this.target.textContent) {
+      const originalText = this.target.textContent;
+      this.target.innerHTML = originalText;
+    }
+  }
+}
+
+// Fallback ScrollSmoother
+const createFallbackScrollSmoother = () => ({
+  kill: () => {},
+  refresh: () => ({} as any),
+  paused: (value?: boolean) => {
+    if (value !== undefined) return {} as any;
+    return false;
+  },
+  progress: (value?: number) => {
+    if (value !== undefined) return {} as any;
+    return 0;
+  },
+  scrollTop: (value?: number) => {
+    if (value !== undefined) return {} as any;
+    return window.scrollY || 0;
+  },
+  scrollTo: () => ({} as any),
+  offset: () => 0,
+  normalizeScroll: () => ({} as any),
+  smooth: (value?: number) => {
+    if (value !== undefined) return {} as any;
+    return 1;
+  },
+  effects: () => {},
+});
+
 export function GSAPProvider({
   children,
   config = DEFAULT_GSAP_CONFIG,
@@ -141,11 +228,23 @@ export function GSAPProvider({
 
         // Load ScrollSmoother if enabled
         if (enableScrollSmoother) {
-          const ScrollSmootherModule = await import("gsap/ScrollSmoother");
-          const ScrollSmoother =
-            ScrollSmootherModule.default || ScrollSmootherModule;
-          gsap.registerPlugin(ScrollSmoother);
-          window.ScrollSmoother = ScrollSmoother;
+          try {
+            const ScrollSmootherModule = await import("gsap/ScrollSmoother");
+            const ScrollSmoother =
+              ScrollSmootherModule.default || ScrollSmootherModule;
+            gsap.registerPlugin(ScrollSmoother);
+            window.ScrollSmoother = ScrollSmoother;
+            console.log("ScrollSmoother loaded successfully");
+          } catch (error) {
+            console.warn("ScrollSmoother not available:", error);
+            // Provide a fallback that doesn't break the app
+            window.ScrollSmoother = {
+              create: createFallbackScrollSmoother,
+              get: () => undefined,
+              refresh: () => {},
+              normalizeScroll: () => {},
+            } as any;
+          }
         }
 
         // Load SplitText if enabled (premium plugin)
@@ -155,10 +254,13 @@ export function GSAPProvider({
             const SplitText = SplitTextModule.default || SplitTextModule;
             gsap.registerPlugin(SplitText);
             window.SplitText = SplitText;
-          } catch {
+          } catch (error) {
             console.warn(
-              "SplitText plugin not available. Make sure you have a valid GSAP license."
+              "SplitText plugin not available. Using fallback text animation. Error:",
+              error
             );
+            // Create a fallback SplitText-like object for basic functionality
+            window.SplitText = FallbackSplitText as any;
           }
         }
 

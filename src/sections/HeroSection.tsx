@@ -78,7 +78,14 @@ const HeroSection: React.FC = () => {
     if (!isLoaded || typeof window === "undefined") return;
 
     const { gsap, SplitText, ScrollTrigger } = window as any;
-    if (!gsap || !SplitText || !ScrollTrigger) return;
+    if (!gsap || !ScrollTrigger) {
+      console.warn("GSAP or ScrollTrigger not available in HeroSection");
+      return;
+    }
+
+    if (!SplitText) {
+      console.warn("SplitText not available, using fallback animation");
+    }
 
     const heroContainer = heroContainerRef.current;
     const heroContent = heroContentRef.current;
@@ -88,10 +95,32 @@ const HeroSection: React.FC = () => {
     if (!heroContainer || !heroContent || !heroTitle || !heroTextScroll) return;
 
     // Create SplitText instance for character animation
-    const titleSplit = new SplitText(heroTitle, {
-      type: "chars",
-    });
-    splitTextInstanceRef.current = titleSplit;
+    let titleSplit = null;
+    if (SplitText) {
+      titleSplit = new SplitText(heroTitle, {
+        type: "chars",
+      });
+      splitTextInstanceRef.current = titleSplit;
+    } else {
+      // Fallback: create simple character spans
+      const text = heroTitle.textContent || "";
+      heroTitle.innerHTML = text
+        .split("")
+        .map(
+          (char) =>
+            `<span style="display: inline-block; transform: translateY(200%)">${
+              char === " " ? "&nbsp;" : char
+            }</span>`
+        )
+        .join("");
+      titleSplit = {
+        chars: Array.from(heroTitle.children),
+        revert: () => {
+          heroTitle.innerHTML = text;
+        },
+      };
+      splitTextInstanceRef.current = titleSplit;
+    }
 
     // Main timeline with exact timing from original
     const mainTimeline = createTimeline({

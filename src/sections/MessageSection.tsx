@@ -42,9 +42,13 @@ const MessageSection: React.FC<MessageSectionProps> = ({
     const ScrollTrigger = window.ScrollTrigger;
     const SplitText = window.SplitText;
 
-    if (!gsap || !ScrollTrigger || !SplitText) {
-      console.warn("GSAP plugins not loaded");
+    if (!gsap || !ScrollTrigger) {
+      console.warn("GSAP or ScrollTrigger not loaded");
       return;
+    }
+
+    if (!SplitText) {
+      console.warn("SplitText not available, using fallback animation");
     }
 
     const cleanupFunctions: (() => void)[] = [];
@@ -62,18 +66,44 @@ const MessageSection: React.FC<MessageSectionProps> = ({
       }
 
       // Create SplitText instances for text animations
-      const firstMsgSplit = new SplitText(firstMessageRef.current, {
-        type: "words",
-      });
+      let firstMsgSplit, secMsgSplit, paragraphSplit;
 
-      const secMsgSplit = new SplitText(secondMessageRef.current, {
-        type: "words",
-      });
+      if (SplitText) {
+        firstMsgSplit = new SplitText(firstMessageRef.current, {
+          type: "words",
+        });
 
-      const paragraphSplit = new SplitText(paragraphRef.current, {
-        type: "words, lines",
-        linesClass: "paragraph-line",
-      });
+        secMsgSplit = new SplitText(secondMessageRef.current, {
+          type: "words",
+        });
+
+        paragraphSplit = new SplitText(paragraphRef.current, {
+          type: "words, lines",
+          linesClass: "paragraph-line",
+        });
+      } else {
+        // Fallback: create simple word spans
+        const createWordSpans = (element: HTMLElement) => {
+          const text = element.textContent || "";
+          element.innerHTML = text
+            .split(" ")
+            .map(
+              (word) =>
+                `<span style="display: inline-block; color: #faeade10;">${word}</span>`
+            )
+            .join(" ");
+          return {
+            words: Array.from(element.children),
+            revert: () => {
+              element.innerHTML = text;
+            },
+          };
+        };
+
+        firstMsgSplit = createWordSpans(firstMessageRef.current);
+        secMsgSplit = createWordSpans(secondMessageRef.current);
+        paragraphSplit = createWordSpans(paragraphRef.current);
+      }
 
       // First message color animation
       const firstMsgAnimation = gsap.to(firstMsgSplit.words, {

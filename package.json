@@ -7,7 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test:cross-browser": "node scripts/cross-browser-test.js",
+    "test:cross-browser:chrome": "node scripts/cross-browser-test.js --browsers chrome",
+    "test:cross-browser:firefox": "node scripts/cross-browser-test.js --browsers firefox",
+    "test:cross-browser:safari": "node scripts/cross-browser-test.js --browsers safari",
+    "test:cross-browser:edge": "node scripts/cross-browser-test.js --browsers edge",
+    "test:cross-browser:headless": "node scripts/cross-browser-test.js --headless",
+    "test:validate-setup": "node scripts/validate-test-setup.js"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

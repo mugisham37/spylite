@@ -14,6 +14,8 @@ import {
   refreshAllScrollTriggers,
 } from "@/utils/gsap-utils";
 import NavBar from "@/components/NavBar";
+import GSAPTest from "@/components/GSAPTest";
+import GSAPDebug from "@/components/GSAPDebug";
 
 // Dynamic imports for optimal code splitting and performance
 // Hero section loads immediately as it's above the fold
@@ -110,6 +112,12 @@ function MainPageContent() {
       !window.gsap ||
       isInitializedRef.current
     ) {
+      console.log("ScrollSmoother initialization skipped:", {
+        hasWindow: typeof window !== "undefined",
+        hasScrollSmoother: !!window.ScrollSmoother,
+        hasGsap: !!window.gsap,
+        isInitialized: isInitializedRef.current,
+      });
       return;
     }
 
@@ -123,18 +131,29 @@ function MainPageContent() {
       // Kill any existing ScrollTriggers to prevent conflicts
       killAllScrollTriggers();
 
+      // Ensure smooth wrapper and content exist
+      const wrapper = document.getElementById("smooth-wrapper");
+      const content = document.getElementById("smooth-content");
+
+      if (!wrapper || !content) {
+        console.warn("ScrollSmoother wrapper or content not found");
+        return;
+      }
+
+      console.log("Creating ScrollSmoother with settings:", optimalSettings);
+
       // Create ScrollSmoother instance with optimal configuration
       scrollSmootherRef.current = window.ScrollSmoother.create({
         wrapper: "#smooth-wrapper",
         content: "#smooth-content",
-        smooth: optimalSettings.smooth,
-        effects: optimalSettings.effects,
-        smoothTouch: optimalSettings.smoothTouch,
-        normalizeScroll: optimalSettings.normalizeScroll,
-        ignoreMobileResize: optimalSettings.ignoreMobileResize,
+        smooth: optimalSettings.smooth || 1.5,
+        effects: optimalSettings.effects !== false,
+        smoothTouch: optimalSettings.smoothTouch || false,
+        normalizeScroll: optimalSettings.normalizeScroll !== false,
+        ignoreMobileResize: optimalSettings.ignoreMobileResize !== false,
         onUpdate: (self: any) => {
           // Add scroll progress tracking for CSS custom properties
-          const progress = self.progress;
+          const progress = self.progress || 0;
           document.documentElement.style.setProperty(
             "--scroll-progress",
             progress.toString()
@@ -145,9 +164,9 @@ function MainPageContent() {
             new CustomEvent("gsap:scroll:update", {
               detail: {
                 progress,
-                direction: self.direction,
-                velocity: self.getVelocity(),
-                scrollTop: self.scrollTop(),
+                direction: self.direction || 1,
+                velocity: self.getVelocity ? self.getVelocity() : 0,
+                scrollTop: self.scrollTop ? self.scrollTop() : window.scrollY,
               },
             })
           );
@@ -188,12 +207,18 @@ function MainPageContent() {
       console.error("Failed to initialize ScrollSmoother:", error);
       // Fallback: ensure page is still scrollable without ScrollSmoother
       document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = "auto";
     }
   }, [optimalSettings, registerCleanup, startMonitoring]);
 
   // Handle ScrollSmoother initialization with proper timing
   useEffect(() => {
-    if (!isLoaded) return;
+    if (!isLoaded) {
+      console.log("GSAP not loaded yet, waiting...");
+      return;
+    }
+
+    console.log("GSAP loaded, initializing ScrollSmoother...");
 
     // Wait for DOM to be fully ready and all dynamic imports to load
     const initTimer = setTimeout(() => {
@@ -209,20 +234,26 @@ function MainPageContent() {
           "#footer-section",
         ];
 
-        const allSectionsLoaded = requiredSections.every((selector) =>
+        const loadedSections = requiredSections.filter((selector) =>
           document.querySelector(selector)
         );
 
-        if (allSectionsLoaded || document.readyState === "complete") {
+        console.log(
+          `Sections loaded: ${loadedSections.length}/${requiredSections.length}`,
+          loadedSections
+        );
+
+        if (loadedSections.length >= 3 || document.readyState === "complete") {
+          // Initialize even if not all sections are loaded, but at least 3 are ready
           initializeScrollSmoother();
         } else {
           // Retry after a short delay if sections aren't ready
-          setTimeout(checkSectionsLoaded, 50);
+          setTimeout(checkSectionsLoaded, 100);
         }
       };
 
       checkSectionsLoaded();
-    }, 100);
+    }, 200);
 
     return () => {
       clearTimeout(initTimer);
@@ -438,6 +469,8 @@ function MainPageContent() {
 
   return (
     <main className="relative">
+      <GSAPTest />
+      <GSAPDebug />
       <NavBar />
 
       {/* Main content sections with proper structure for ScrollSmoother */}
