@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Production build optimizations
+  output: process.env.NODE_ENV === "production" ? "standalone" : undefined,
+
   // Enable experimental features for optimal performance
   experimental: {
     optimizePackageImports: ["gsap", "@gsap/react"],
+    optimizeCss: true,
+    gzipSize: true,
   },
 
   // Image optimization configuration with enhanced settings
@@ -22,29 +27,60 @@ const nextConfig = {
   poweredByHeader: false,
   generateEtags: true, // Enable ETags for better caching
 
+  // Production-specific optimizations
+  reactStrictMode: true,
+  productionBrowserSourceMaps: false, // Disable source maps in production for security
+
+  // Compiler optimizations
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? {
+            exclude: ["error", "warn"],
+          }
+        : false,
+  },
+
   // Enhanced headers for security and performance
   async headers() {
+    const securityHeaders = [
+      {
+        key: "X-Frame-Options",
+        value: "DENY",
+      },
+      {
+        key: "X-Content-Type-Options",
+        value: "nosniff",
+      },
+      {
+        key: "Referrer-Policy",
+        value: "origin-when-cross-origin",
+      },
+      {
+        key: "X-DNS-Prefetch-Control",
+        value: "on",
+      },
+      {
+        key: "Strict-Transport-Security",
+        value: "max-age=31536000; includeSubDomains; preload",
+      },
+      {
+        key: "Permissions-Policy",
+        value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+      },
+      {
+        key: "Content-Security-Policy",
+        value:
+          process.env.NODE_ENV === "production"
+            ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+            : "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; frame-ancestors 'none';",
+      },
+    ];
+
     return [
       {
         source: "/(.*)",
-        headers: [
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "origin-when-cross-origin",
-          },
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-        ],
+        headers: securityHeaders,
       },
       // Static assets with long-term caching
       {

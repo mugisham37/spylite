@@ -240,10 +240,10 @@ declare module "gsap" {
 // Global GSAP configuration augmentation
 declare global {
   interface Window {
-    gsap: typeof import("gsap").gsap;
-    ScrollTrigger: typeof import("gsap/ScrollTrigger");
-    ScrollSmoother: typeof import("gsap/ScrollSmoother");
-    SplitText: typeof import("gsap/SplitText");
+    gsap?: typeof import("gsap").gsap;
+    ScrollTrigger?: typeof import("gsap/ScrollTrigger");
+    ScrollSmoother?: typeof import("gsap/ScrollSmoother");
+    SplitText?: typeof import("gsap/SplitText");
   }
 }
 

@@ -2,12 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { NavBarProps } from "@/types/components";
 
-const NavBar: React.FC<NavBarProps> = ({
-  className = "",
-  isScrolled: _isScrolled = false,
-  onMenuToggle: _onMenuToggle,
-  ...props
-}) => {
+const NavBar: React.FC<NavBarProps> = ({ className = "", ...props }) => {
   return (
     <nav
       className={`fixed top-0 left-0 z-50 md:p-9 p-3 ${className}`}

@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { useMediaQuery } from "react-responsive";
 import { useRef, useState, useCallback } from "react";
+import Image from "next/image";
 import OptimizedVideo from "./OptimizedVideo";
 
 interface VideoPinSectionProps {
@@ -207,16 +208,20 @@ const VideoPinSection: React.FC<VideoPinSectionProps> = ({
             }
           }}
         >
-          <img
+          <Image
             src="/images/circle-text.svg"
             alt="Play button circle text"
             className="spin-circle circle-text size-[15vw]"
+            width={200}
+            height={200}
           />
           <div className={`play-btn ${isHovered ? "hovered" : ""}`}>
-            <img
+            <Image
               src="/images/play.svg"
               alt={isPlaying ? "Pause" : "Play"}
               className="size-[3vw] ml-[.5vw] play-icon transition-transform duration-300"
+              width={48}
+              height={48}
               style={{
                 transform: isPlaying ? "scale(0.8)" : "scale(1)",
                 opacity: isPlaying ? 0.7 : 1,

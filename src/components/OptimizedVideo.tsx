@@ -52,8 +52,6 @@ const OptimizedVideo = forwardRef<HTMLVideoElement, OptimizedVideoProps>(
       lazy = true,
       threshold = 0.1,
       rootMargin = "50px",
-      quality = "medium",
-      enablePreload = true,
       isAboveFold = false,
       ...props
     },

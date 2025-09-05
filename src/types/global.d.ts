@@ -1,17 +1,6 @@
 // Global type declarations for the application
 
-// Environment variables
-declare namespace NodeJS {
-  interface ProcessEnv {
-    NODE_ENV: "development" | "production" | "test";
-    NEXT_PUBLIC_APP_URL: string;
-    NEXT_PUBLIC_ANALYTICS_ID?: string;
-    NEXT_PUBLIC_GTM_ID?: string;
-    NEXT_PUBLIC_SENTRY_DSN?: string;
-    NEXT_PUBLIC_API_BASE_URL?: string;
-    GSAP_LICENSE_KEY?: string;
-  }
-}
+// Environment variables - using process.env directly
 
 // Next.js Image component augmentation
 declare module "next/image" {
@@ -207,7 +196,7 @@ interface IntersectionObserver {
   unobserve(target: Element): void;
 }
 
-declare var IntersectionObserver: {
+const IntersectionObserver: {
   prototype: IntersectionObserver;
   new (
     callback: (
@@ -242,7 +231,7 @@ interface ResizeObserverOptions {
   box?: "content-box" | "border-box" | "device-pixel-content-box";
 }
 
-declare var ResizeObserver: {
+const ResizeObserver: {
   prototype: ResizeObserver;
   new (
     callback: (entries: ResizeObserverEntry[], observer: ResizeObserver) => void
@@ -272,7 +261,7 @@ interface PerformanceObserverInit {
 
 type PerformanceEntryList = PerformanceEntry[];
 
-declare var PerformanceObserver: {
+const PerformanceObserver: {
   prototype: PerformanceObserver;
   new (
     callback: (
@@ -289,43 +278,7 @@ interface PerformanceObserverEntryList {
   getEntriesByType(type: string): PerformanceEntryList;
 }
 
-// Web Animations API
-interface AnimationEffect {
-  getComputedTiming(): ComputedEffectTiming;
-  getTiming(): EffectTiming;
-  updateTiming(timing?: OptionalEffectTiming): void;
-}
-
-interface KeyframeEffect extends AnimationEffect {
-  readonly target: Element | null;
-  pseudoElement: string | null;
-  composite: CompositeOperation;
-  iterationComposite: IterationCompositeOperation;
-  getKeyframes(): ComputedKeyframe[];
-  setKeyframes(keyframes: Keyframe[] | PropertyIndexedKeyframes | null): void;
-}
-
-interface Animation extends EventTarget {
-  readonly currentTime: number | null;
-  effect: AnimationEffect | null;
-  readonly finished: Promise<Animation>;
-  id: string;
-  readonly pending: boolean;
-  readonly playState: AnimationPlayState;
-  playbackRate: number;
-  readonly ready: Promise<Animation>;
-  readonly replaceState: AnimationReplaceState;
-  startTime: number | null;
-  timeline: AnimationTimeline | null;
-  cancel(): void;
-  commitStyles(): void;
-  finish(): void;
-  pause(): void;
-  persist(): void;
-  play(): void;
-  reverse(): void;
-  updatePlaybackRate(playbackRate: number): void;
-}
+// Web Animations API - using native browser APIs
 
 // Custom events
 interface CustomEventMap {
@@ -349,6 +302,8 @@ declare global {
   interface Window {
     scrollSmootherResizeTimer?: number;
     gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
+    Sentry?: any;
   }
 }
 

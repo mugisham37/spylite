@@ -30,3 +30,30 @@ next-env.d.ts
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Production build analysis
+build-analysis.json
+deployment-check-results.json
+
+# Testing
+coverage/
+test-reports/
+test-screenshots/
+
+# Monitoring and analytics
+*.log
+logs/
+
+# Docker
+.dockerignore
+
+# Deployment
+deployment-logs/
+*.deploy.log
