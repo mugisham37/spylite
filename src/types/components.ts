@@ -180,9 +180,9 @@ export interface TestimonialVideoCardProps {
 
 // Footer section types
 export interface FooterSectionProps extends BaseComponentProps {
-  socialLinks: SocialLink[];
+  socialLinks?: SocialLink[];
   newsletterConfig?: NewsletterConfig;
-  copyrightText: string;
+  copyrightText?: string;
 }
 
 export interface SocialLink {
@@ -193,11 +193,11 @@ export interface SocialLink {
 }
 
 export interface NewsletterConfig {
-  placeholder: string;
-  buttonText: string;
-  onSubmit: (email: string) => Promise<void>;
-  successMessage: string;
-  errorMessage: string;
+  placeholder?: string;
+  buttonText?: string;
+  onSubmit?: (email: string) => Promise<void>;
+  successMessage?: string;
+  errorMessage?: string;
 }
 
 // Optimized asset components
